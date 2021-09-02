@@ -12,7 +12,7 @@ const media = {
 
 const PageHeaderWrapper = styled.div`
   width: 100%;
-  height: 35vh;
+  height: 40vh;
   margin-top: 11vh;
   display: flex;
   justify-content: flex-start;
@@ -22,7 +22,7 @@ const PageHeaderWrapper = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
-    background: url("/img/mhm27.jpg");
+    background: url("/img/ladybloom/desk7.jpg");
     filter: brightness(60%);
     background: no repeat center center scroll;
     -webkit-background-size: cover;

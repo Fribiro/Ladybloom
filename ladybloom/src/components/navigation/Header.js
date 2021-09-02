@@ -4,6 +4,8 @@ import { Link, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../state/user";
 import Avatar from "@material-ui/core/Avatar";
+import { useDispatch } from "react-redux";
+import { userSet } from "../../state/user";
 
 const media = {
   mobile: "@media (min-width: 320px) and (max-width: 480px)",
@@ -159,16 +161,15 @@ const Navwrapper = styled.div`
 const Header = () => {
   const [redirect, setRedirect] = useState("");
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const logOutCallback = async () => {
     await fetch("http://localhost:5500/auth/logout", {
       method: "POST",
     });
-    //create user from context
-    //setUser({});
-    //navigate back to the home page
-    console.log("Logged out");
+    dispatch(userSet());
     setRedirect("/");
+    console.log("Logged out");
   };
 
   return (
@@ -222,6 +223,16 @@ const Header = () => {
                     Our Story
                   </Link>
                 </div> */}
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" to="educational-content">
+                  Learn
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" to="menstrual-packages">
+                  Menstrual Packages
+                </Link>
               </li>
               <li class="nav-item">
                 <Link class="nav-link" to="beneficiarycards">

@@ -32,7 +32,7 @@ exports.login = async (req, res) => {
       return;
     }
     db.query(
-      "SELECT * FROM entrepreneurSignupD WHERE email = ?",
+      "SELECT * FROM beneficiary WHERE email = ?",
       [email],
       async (error, results) => {
         //bcryptcompare compares the password being typed with the one in the db
@@ -68,7 +68,7 @@ exports.signup = (req, res) => {
 
   //hinder sql injection by allowing each person to use only one email address
   db.query(
-    "SELECT email FROM investorSignupD WHERE email = ?",
+    "SELECT email FROM beneficiary WHERE email = ?",
     [email],
     async (error, results) => {
       if (error) {
@@ -98,7 +98,7 @@ exports.signup = (req, res) => {
       //let hashedPassword = await bcrypt.hash(password, 10);
 
       db.query(
-        "INSERT INTO investorSignupD SET ?",
+        "INSERT INTO beneficiary SET ?",
         {
           firstName: firstName,
           lastName: lastName,
@@ -116,6 +116,77 @@ exports.signup = (req, res) => {
           }
         }
       );
+    }
+  );
+};
+
+exports.order = (req, res) => {
+  const { fullname, email, location, packtype} = req.body;
+
+  if (!fullname || !email || !location ||!packtype) {
+    res.status(400).json({
+      message: "All fields are required",
+    });
+     console.log("All fields are required");
+    return;
+  }
+
+  db.query(
+    "INSERT INTO packageOrder SET ?",
+    {
+      fullName: fullname,
+      email: email,
+      location: location,
+      type: packtype
+    },
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(results);
+        res.status(201).json({
+          results,
+        });
+      }
+    }
+  );
+};
+
+
+//get a new access token with a refresh token
+exports.refreshtoken = (req, res) => {
+  const token = req.cookies.refreshtoken;
+  
+  if (!token) return res.send("No refreshtoken");//res.send({ accesstoken: "" });
+  
+  let payload = null;
+  try {
+    payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
+  } catch (err) {
+    return res.send('Invalid token')//res.send({ accesstoken: "" });
+  }
+  
+  db.query(
+    "SELECT * FROM beneficiary WHERE email = ?",
+    [email],
+    async (error, results) => {
+      
+      if (results.id === payload.userId) {
+        if (!results) {
+          return res.send({ accesstoken: "" });
+        }
+        if (results.refreshtoken !== token) {
+          return res.send({ accesstoken: "" });
+        }
+      } else {
+        const accesstoken = createAccessToken(results.Id);
+        const refreshtoken = createRefreshToken(results.Id);
+        //store in db
+        results[0].refreshtoken = refreshtoken;
+
+        sendRefreshToken(res, refreshtoken);
+        return res.send({ accesstoken });
+      }
     }
   );
 };

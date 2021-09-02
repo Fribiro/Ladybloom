@@ -19,63 +19,33 @@ const LocalAuthority = () => {
   const [userdetails, setUserdetails] = useState([]);
   const [searchText, setSearchText] = useState("");
   const user = useSelector(selectUser);
-  if (!user.accesstoken) {
-    return <Redirect from="" to="login" noThrow />;
-  }
+  // if (!user.accesstoken) {
+  //   return <Redirect from="" to="login" noThrow />;
+  // }
 
   const getUser = (id) => {
-    Axios.get("http://localhost:5500/investor").then((res) => {
+    Axios.get("http://localhost:5500/administrator").then((res) => {
       console.log(res.data);
       setUserdetails(res.data[0]);
       $("#myModal").modal("show");
     });
   };
-  // useEffect(() => {
-  //   Axios.get("http://localhost:5500/investor").then((res) => {
-  //     console.log(res.data);
-  //     setUsers(res.data);
-  //     //console.log(users);
-  //   });
-  // }, []);
-  const updateUsers = (id) => {
-    Axios.put("http://localhost:5500/investorupdate", {}).then((res) => {
-      setUsers(
-        users.map((val) => {
-          return val.id === id
-            ? {
-                firstName: val.firstName,
-                lastName: val.lastName,
-                email: val.email,
-              }
-            : val;
-        })
-      );
-      $("#editmodal").modal("show");
+  useEffect(() => {
+    Axios.get("http://localhost:5500/administrator").then((res) => {
+      console.log(res.data);
+      setUsers(res.data);
+      //console.log(users);
     });
-  };
+  }, []);
   const handleChange = (value) => {
     setSearchText(value);
     filterUsers(value);
   };
 
-  const excludeColumns = [
-    "id",
-    "investmentRange",
-    "location ",
-    "expertise ",
-    "phone",
-    "gender",
-    "profession",
-    "nationalId ",
-    "street ",
-    "town",
-    "address",
-    "county ",
-    "postalCode",
-  ];
+  const excludeColumns = ["id"];
 
   const filterUsers = (value) => {
-    Axios.get("http://localhost:5500/investor").then((res) => {
+    Axios.get("http://localhost:5500/administrator").then((res) => {
       //console.log(res.data);
       //setUsers(res.data);
 
@@ -98,8 +68,8 @@ const LocalAuthority = () => {
       <LocalAuthorityWrapper>
         <Header />
         <ProtectedHeader
-          loantitle={"Local Authority"}
-          loanHeadLink={"Local Authority"}
+          protectedtitle={"Local Authority"}
+          protectedHeadLink={"Local Authority"}
         ></ProtectedHeader>
         <input
           style={{
@@ -145,11 +115,11 @@ const LocalAuthority = () => {
                       </div>
                       <div class="text-center">
                         {/* <span class="total d-block pt-2">Investment Range</span> */}
-                        <span className="amt-range">{val.investmentRange}</span>
+                        <span className="amt-range">{val.occupation}</span>
                       </div>
                       <div class="text-center expertise">
-                        <span>Expertise</span>
-                        <p>{val.expertise}</p>
+                        <span>Menstrual Packages</span>
+                        <p>Pickup</p>
                       </div>
                       <div className="viewmore text-center align-items-center d-flex justify-content-center pt-2 pb-2">
                         <Link to="InvViewProfile">

@@ -3,8 +3,8 @@ import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
 const UserCardsWrapper = styled.div`
-  margin: 1rem 4rem;
-  height: 40rem;
+  margin: 2rem 2rem;
+  height: 30rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +36,7 @@ const UserCardsWrapper = styled.div`
   & .col1 img {
     width: 100%;
     height: 100%;
-    filter: brightness(80%);
+    filter: brightness(70%);
   }
 
   & .col2 {
@@ -52,7 +52,9 @@ const UserCardsWrapper = styled.div`
   }
 
   & .col2 p {
-    line-height: 2rem;
+    line-height: 1.5rem;
+    font-family: "Crimson Text", serif;
+    margin-bottom: 1rem;
   }
 
   & .col2 a {
@@ -66,30 +68,28 @@ const UserCards = () => {
         <div className="user">
           <div className="parentCol">
             <div className="col1">
-              <img src="./img/sshow4.jpg" alt="" />
+              <img src="./img/ladybloom/recepient.jpeg" alt="" />
             </div>
             <div className="col2">
               <h5>Beneficiary</h5>
               <p>
-                This enables them to gain a broader knowledge on how to keep a
-                healthy menstrual hygiene as well as allow girls to easily reach
-                out to verified mentors on any problems that might occur during
-                this period.
+                This enables them to gain a broader knowledge on menstrual
+                hygiene and easily reach out to verified mentors on any problems
+                that might occur during this period.
               </p>
               <Link to="beneficiary">View More</Link>
             </div>
           </div>
           <div className="parentCol">
             <div className="col1">
-              <img src="./img/sshow4.jpg" alt="" />
+              <img src="./img/ladybloom/donate1.jpeg" alt="" />
             </div>
             <div className="col2">
               <h5>Donor</h5>
               <p>
-                This enables them to gain a broader knowledge on how to keep a
-                healthy menstrual hygiene as well as allow girls to easily reach
-                out to verified mentors on any problems that might occur during
-                this period.
+                This enables them to gain a broader knowledge on menstrual
+                hygiene and easily reach out to verified mentors on any problems
+                that might occur during this period.
               </p>
               <Link to="donor">View More</Link>
             </div>
@@ -100,30 +100,28 @@ const UserCards = () => {
             <div className="col2">
               <h5>Mentor</h5>
               <p>
-                This enables them to gain a broader knowledge on how to keep a
-                healthy menstrual hygiene as well as allow girls to easily reach
-                out to verified mentors on any problems that might occur during
-                this period.
+                This enables them to gain a broader knowledge on menstrual
+                hygiene and easily reach out to verified mentors on any problems
+                that might occur during this period.
               </p>
               <Link to="mentor">View More</Link>
             </div>
             <div className="col1">
-              <img src="./img/sshow4.jpg" alt="" />
+              <img src="./img/ladybloom/mentor.jpeg" alt="" />
             </div>
           </div>
           <div className="parentCol">
             <div className="col2">
               <h5>Local Authority</h5>
               <p>
-                This enables them to gain a broader knowledge on how to keep a
-                healthy menstrual hygiene as well as allow girls to easily reach
-                out to verified mentors on any problems that might occur during
-                this period.
+                This enables them to gain a broader knowledge on menstrual
+                hygiene and easily reach out to verified mentors on any problems
+                that might occur during this period.
               </p>
               <Link to="local-authority">View More</Link>
             </div>
             <div className="col1">
-              <img src="./img/sshow4.jpg" alt="" />
+              <img src="./img/ladybloom/dc.jpeg" alt="" />
             </div>
           </div>
         </div>

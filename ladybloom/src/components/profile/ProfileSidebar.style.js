@@ -9,7 +9,7 @@ const SidebarPageWrapper = styled.div`
   width: 85%;
 `;
 
-const Pagelinkwrapper = styled.ul`
+const Pagelinkwrapper = styled.ul` 
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -95,19 +95,19 @@ const ProfileSidebar = () => {
           <div className="icon">
             <FontAwesomeIcon icon="user" />
           </div>
-          Virginiah Ng'ang'a
+          <div className="icon-text">Virginiah Ng'ang'a</div>
         </li>
         <li>
           <div className="icon">
             <FontAwesomeIcon icon="envelope" />
           </div>
-          virginiah@gmail.com
+          <div className="icon-text">virginiah@gmail.com</div>
         </li>
         <li>
           <div className="icon">
             <FontAwesomeIcon icon="map-marker-alt" />
           </div>
-          Nairobi
+          <div className="icon-text">Nairobi</div>
         </li>
       </Pagelinkwrapper>
     </SidebarPageWrapper>

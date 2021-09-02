@@ -23,7 +23,8 @@ import {
   faShieldAlt,
   faClipboardList,
   faChevronUp,
-  faMapMarker
+  faMapMarker,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 
 import ScrollUp from "./components/ScrollUp";
@@ -40,6 +41,7 @@ import MentorPage from "./components/profile/MentorPage";
 import AdministratorPage from './components/profile/AdministratorPage'
 import Beneficiary from "./components/profile/Beneficiary";
 import BeneficiaryPages from "./components/protected/BeneficiaryPages";
+import Learn from "./components/protected/Learn";
 
 library.add(
   fab,
@@ -60,7 +62,8 @@ library.add(
   faShieldAlt,
   faClipboardList,
   faChevronUp,
-  faMapMarker
+  faMapMarker,
+  faTimes
 );
 
 export const UserContext = React.createContext([]);
@@ -131,6 +134,7 @@ function App(props) {
             <Route exact path="/administrator-page" component={AdministratorPage} />
             <Route exact path="/beneficiary" component={Beneficiary} />
             <Route exact path="/beneficiarycards" component={BeneficiaryPages} />
+            <Route exact path="/educational-content" component={Learn} />
           </Switch>
         </Router>
         <ScrollUp showBelow={1500} />

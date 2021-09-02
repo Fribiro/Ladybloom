@@ -12,8 +12,8 @@ const db = mysql.createConnection({
 });
 
 //get all users
-router.get("/users", (req, res) => {
-  let sql = "SELECT * FROM entrepreneurSignup";
+router.get("/beneficiary", (req, res) => {
+  let sql = "SELECT * FROM beneficiary";
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
     else {
@@ -22,7 +22,26 @@ router.get("/users", (req, res) => {
     }
   });
 });
-
+router.get("/mentor", (req, res) => {
+  let sql = "SELECT * FROM mentor";
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+router.get("/administrator", (req, res) => {
+  let sql = "SELECT * FROM administrator";
+  let query = db.query(sql, (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
 //get one user
 router.get("/users/:id", (req, res) => {
   let sql = "SELECT * FROM entrepreneurSignup WHERE id= ? ";
@@ -94,7 +113,7 @@ router.delete("/users/:id", (req, res) => {
 });
 
 //get all users
-router.get("/investor", authPage(["beneficiary", "mentors"]), (req, res) => {
+router.get("/investor", (req, res) => {
   let sql = "SELECT * FROM investorSignupD";
   let query = db.query(sql, (err, results) => {
     if (err) throw err;

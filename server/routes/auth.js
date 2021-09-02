@@ -9,6 +9,10 @@ router.post("/signup", authController.signup);
 
 router.post("/login", authController.login);
 
+router.post("/order", authController.order);
+
+router.post("/refresh_token", authController.refreshtoken);
+
 router.post("/send_mail", cors(), async (req, res) => {
   let { text, info } = req.body;
   const transport = nodemailer.createTransport({
@@ -38,6 +42,13 @@ router.post("/send_mail", cors(), async (req, res) => {
         <p>Kind regards,</br> ${text}</p>
          </div>
     `,
+  });
+});
+
+router.post("/logout", (_req, res) => {
+  res.clearCookie("refreshtoken", { path: "/auth/refresh_token" });
+  return res.send({
+    message: "Logged out",
   });
 });
 

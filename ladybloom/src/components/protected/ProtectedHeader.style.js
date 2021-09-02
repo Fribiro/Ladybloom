@@ -12,7 +12,7 @@ const media = {
 
 const ProtectedHeaderWrapper = styled.div`
   width: 100%;
-  height: 35vh;
+  height: 45vh;
   margin-top: 11vh;
   display: flex;
   justify-content: flex-start;
@@ -22,8 +22,8 @@ const ProtectedHeaderWrapper = styled.div`
     width: 100%;
     height: 100%;
     position: relative;
-    background: url("/img/mhm28.jpg");
-    filter: brightness(60%);
+    background: url("/img/ladybloom/pad2.jpg");
+    filter: brightness(80%);
     background: no repeat center center scroll;
     -webkit-background-size: cover;
     background-size: cover;
@@ -41,7 +41,7 @@ const ProtectedHeaderWrapper = styled.div`
 
   & .ladybHeadlink {
     position: absolute;
-    top: 15rem;
+    top: 17rem;
     left: 4rem;
     z-index: 1;
     color: rgba(255, 255, 255, 0.9);
@@ -99,9 +99,9 @@ const ProtectedHeader = (props) => {
   return (
     <ProtectedHeaderWrapper>
       <div className="ladyb-header-bgimg"></div>
-      <h2 className="ladybTitleType">{props.loantitle}</h2>
+      <h2 className="ladybTitleType">{props.protectedtitle}</h2>
       <h6 className="ladybHeadlink">
-        <Link to="/">Ladybloom</Link> / {props.loanHeadLink}
+        <Link to="/">Ladybloom</Link> / {props.protectedHeadLink}
       </h6>
     </ProtectedHeaderWrapper>
   );
