@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import Header from "../navigation/Header";
@@ -133,7 +133,22 @@ const BeneficiaryWrapper = styled.div`
 
 const Beneficiary = () => {
   const [visible, setVisible] = useState(true);
+  const [users, setUsers] = useState([]);
   const user = useSelector(selectUser);
+
+  useEffect(() => {
+    console.log(user);
+    Axios.get("http://localhost:5500/benef", {
+      headers: {
+        email: user.accesstoken.userEmail,
+      },
+    }).then((res) => {
+      console.log(res.data);
+      setUsers(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
   if (!user.accesstoken) {
     return <Redirect from="" to="login" noThrow />;
   }
@@ -141,229 +156,237 @@ const Beneficiary = () => {
   return (
     <BeneficiaryWrapper>
       <Header />
-      <div className="userProfile">
-        <div className="profileNav row">
-          <div className="userHeader">
-            <img
-              className="rounded-circle z-depth-2"
-              src="/img/user2.jpg"
-              alt=""
-            />
-            {/* <Avatar size={100} /> */}
-          </div>
-          <div className="userNav">
-            <ul className="sideheaders">
-              <li>Username</li>
-              <li
-                className="profileNavClickable"
-                onClick={() => {
-                  setVisible(true);
-                }}
-              >
-                Profile
-              </li>
-              <li>Location</li>
-              <li>Email</li>
-            </ul>
-          </div>
-        </div>
-        {visible && (
-          <div className="profile-details">
-            <div className="parent row">
-              <div className="col-md-6">
-                <div className="profile-head">
-                  <h5>Virginiah Ng'ang'a</h5>
-                  <h6>Web Developer and Designer</h6>
-                </div>
-              </div>
-              <div className="col-md-6">
-                <input
-                  type="submit"
-                  className="profile-edit-btn"
-                  name="btnAddMore"
-                  value="Edit Profile"
-                  onClick={() => {
-                    setVisible(false);
-                  }}
+      {users.map((val, key) => {
+        return (
+          <div className="userProfile" key={key}>
+            <div className="profileNav row">
+              <div className="userHeader">
+                <img
+                  className="rounded-circle z-depth-2"
+                  src="/img/user2.jpg"
+                  alt=""
                 />
+                {/* <Avatar size={100} /> */}
+              </div>
+              <div className="userNav">
+                <ul className="sideheaders">
+                  <li>
+                    {val.firstName} {val.lastName}
+                  </li>
+                  <li
+                    className="profileNavClickable"
+                    onClick={() => {
+                      setVisible(true);
+                    }}
+                  >
+                    Profile
+                  </li>
+                  <li>{val.location}</li>
+                  <li>{val.email}</li>
+                </ul>
               </div>
             </div>
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  id="home-tab"
-                  data-toggle="tab"
-                  href="#home"
-                  role="tab"
-                  aria-controls="home"
-                  aria-selected="true"
-                >
-                  About
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  id="profile-tab"
-                  data-toggle="tab"
-                  href="#profile"
-                  role="tab"
-                  aria-controls="profile"
-                  aria-selected="false"
-                >
-                  Address
-                </a>
-              </li>
-            </ul>
-
-            <div className="row">
-              <div className="col-md-8">
-                <div className="tab-content profile-tab" id="myTabContent">
-                  <div
-                    className="tab-pane fade show active"
-                    id="home"
-                    role="tabpanel"
-                    aria-labelledby="home-tab"
-                  >
-                    <div className="row">
-                      <div className="col-md-6 profile-sub-headers">
-                        <label>Personal Details</label>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>User Id</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>1</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Name</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Festus Ribiro</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Email</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>fesri@gmail.com</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>National ID</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>24098674</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Gender</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Male</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Phone</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>123 456 7890</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Profession</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Web Developer and Designer</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Email</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>kshitighelani@gmail.com</p>
-                      </div>
+            {visible && (
+              <div className="profile-details">
+                <div className="parent row">
+                  <div className="col-md-6">
+                    <div className="profile-head">
+                      <h5>
+                        {val.firstName} {val.lastName}
+                      </h5>
+                      <h6>Web Developer and Designer</h6>
                     </div>
                   </div>
+                  <div className="col-md-6">
+                    <input
+                      type="submit"
+                      className="profile-edit-btn"
+                      name="btnAddMore"
+                      value="Edit Profile"
+                      onClick={() => {
+                        setVisible(false);
+                      }}
+                    />
+                  </div>
+                </div>
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      id="home-tab"
+                      data-toggle="tab"
+                      href="#home"
+                      role="tab"
+                      aria-controls="home"
+                      aria-selected="true"
+                    >
+                      About
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="profile-tab"
+                      data-toggle="tab"
+                      href="#profile"
+                      role="tab"
+                      aria-controls="profile"
+                      aria-selected="false"
+                    >
+                      Address
+                    </a>
+                  </li>
+                </ul>
 
-                  <div
-                    className="tab-pane fade"
-                    id="profile"
-                    role="tabpanel"
-                    aria-labelledby="profile-tab"
-                  >
-                    <div className="row">
-                      <div className="col-md-6 profile-sub-headers">
-                        <label>Address Details</label>
+                <div className="row">
+                  <div className="col-md-8">
+                    <div className="tab-content profile-tab" id="myTabContent">
+                      <div
+                        className="tab-pane fade show active"
+                        id="home"
+                        role="tabpanel"
+                        aria-labelledby="home-tab"
+                      >
+                        <div className="row">
+                          <div className="col-md-6 profile-sub-headers">
+                            <label>Personal Details</label>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>User Id</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>1</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Name</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Festus Ribiro</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Email</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>fesri@gmail.com</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>National ID</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>24098674</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Gender</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Male</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Phone</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>123 456 7890</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Profession</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Web Developer and Designer</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Email</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>kshitighelani@gmail.com</p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Street</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Kimathi</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Town</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Ruiru</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>City</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Nairobi</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Address</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>98674</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>Postal Code</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>00100</p>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-6">
-                        <label>County</label>
-                      </div>
-                      <div className="col-md-6">
-                        <p>Nairobi</p>
+
+                      <div
+                        className="tab-pane fade"
+                        id="profile"
+                        role="tabpanel"
+                        aria-labelledby="profile-tab"
+                      >
+                        <div className="row">
+                          <div className="col-md-6 profile-sub-headers">
+                            <label>Address Details</label>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Street</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Kimathi</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Town</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Ruiru</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>City</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Nairobi</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Address</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>98674</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>Postal Code</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>00100</p>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-md-6">
+                            <label>County</label>
+                          </div>
+                          <div className="col-md-6">
+                            <p>Nairobi</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
+            {!visible ? <UpdateProfile /> : null}
           </div>
-        )}
-        {!visible ? <UpdateProfile /> : null}
-      </div>
+        );
+      })}
       <Footer />
     </BeneficiaryWrapper>
   );

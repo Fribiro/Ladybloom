@@ -12,6 +12,16 @@ const isAuth = (req) => {
   return userId;
 };
 
+const authRole = (role) => {
+   return (req, res, next) => {
+     if (req.userId.role !== role) {
+      res.status(401)
+      return res.send("Not allowed")
+     }
+     next()
+   }
+}
+
 const authPage = (permission) => {
   return (req,res, next) => {
     const userRole = req.body.role
@@ -25,5 +35,6 @@ const authPage = (permission) => {
 
 module.exports = {
   isAuth,
-  authPage
+  authPage,
+  authRole
 };

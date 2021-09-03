@@ -19,9 +19,19 @@ const LocalAuthority = () => {
   const [userdetails, setUserdetails] = useState([]);
   const [searchText, setSearchText] = useState("");
   const user = useSelector(selectUser);
-  // if (!user.accesstoken) {
-  //   return <Redirect from="" to="login" noThrow />;
-  // }
+
+  useEffect(() => {
+    
+    Axios.get("http://localhost:5500/administrator").then((res) => {
+      console.log(res.data);
+      setUsers(res.data);
+      //console.log(users);
+    });
+  }, []);
+
+  if (!user.accesstoken) {
+    return <Redirect from="" to="login" noThrow />;
+  }
 
   const getUser = (id) => {
     Axios.get("http://localhost:5500/administrator").then((res) => {
@@ -30,13 +40,7 @@ const LocalAuthority = () => {
       $("#myModal").modal("show");
     });
   };
-  useEffect(() => {
-    Axios.get("http://localhost:5500/administrator").then((res) => {
-      console.log(res.data);
-      setUsers(res.data);
-      //console.log(users);
-    });
-  }, []);
+  
   const handleChange = (value) => {
     setSearchText(value);
     filterUsers(value);

@@ -60,14 +60,12 @@ const Login = () => {
       },
     }).then(
       (res) => {
-        dispatch(userSet(res.data.accesstoken));
+        dispatch(userSet({accesstoken: res.data.accesstoken, userEmail:res.data.email}));
+        console.log(res.data.email);
         setRedirect("/beneficiary");
-        console.log("Logged in");
       },
       (err) => {
         setMessage(err.response.data.message);
-
-        //dispatch(userSet(null));
       }
     );
   };

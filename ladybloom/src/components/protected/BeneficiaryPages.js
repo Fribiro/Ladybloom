@@ -19,24 +19,29 @@ const BeneficiaryPages = () => {
   const [userdetails, setUserdetails] = useState([]);
   const [searchText, setSearchText] = useState("");
   const user = useSelector(selectUser);
-  // if (!user.accesstoken) {
-  //   return <Redirect from="" to="login" noThrow />;
-  // }
+  
 
-  const getUser = (id) => {
-    Axios.get("http://localhost:5500/beneficiary").then((res) => {
-      console.log(res.data);
-      setUserdetails(res.data[0]);
-      $("#myModal").modal("show");
-    });
-  };
   useEffect(() => {
+
     Axios.get("http://localhost:5500/beneficiary").then((res) => {
       console.log(res.data);
       setUsers(res.data);
       //console.log(users);
     });
   }, []);
+
+  if (!user.accesstoken) {
+    return <Redirect from="" to="login" noThrow />;
+  }
+
+  const getUser = () => {
+    Axios.get("http://localhost:5500/beneficiary").then((res) => {
+      console.log(res.data);
+      setUserdetails(res.data[0]);
+      $("#myModal").modal("show");
+    });
+  };
+
   const handleChange = (value) => {
     setSearchText(value);
     filterUsers(value);

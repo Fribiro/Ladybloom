@@ -22,6 +22,19 @@ router.get("/beneficiary", (req, res) => {
     }
   });
 });
+
+router.get("/benef", (req, res) => {
+
+  let sql = "SELECT * FROM beneficiary WHERE email= ? ";
+  let query = db.query(sql, [req.headers.email], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+
 router.get("/mentor", (req, res) => {
   let sql = "SELECT * FROM mentor";
   let query = db.query(sql, (err, results) => {
@@ -43,155 +56,16 @@ router.get("/administrator", (req, res) => {
   });
 });
 //get one user
-router.get("/users/:id", (req, res) => {
-  let sql = "SELECT * FROM entrepreneurSignup WHERE id= ? ";
-  let query = db.query(sql, [req.params.id], (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-      console.log(results);
-    }
-  });
-});
+// router.get("/beneficiary/:id", (req, res) => {
+//   let sql = "SELECT * FROM administrator WHERE id= ? ";
+//   let query = db.query(sql, [req.params.id], (err, results) => {
+//     if (err) throw err;
+//     else {
+//       res.send(results);
+//       console.log(results);
+//     }
+//   });
+// });
 
-//create a user
-router.post("/users", (req, res) => {
-  let data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  };
-
-  let sql = "INSERT INTO entrepreneurSignup SET ?";
-  let query = db.query(sql, data, (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-    }
-  });
-});
-
-//edit user
-router.post("/update", (req, res) => {
-  let id = req.body.id;
-  let data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  };
-  let sql =
-    "UPDATE entrepreneurSignup SET firstName='" +
-    req.body.firstName +
-    "',lastName='" +
-    req.body.lastName +
-    "', email='" +
-    req.body.email +
-    "', password='" +
-    req.body.password +
-    "' WHERE id=" +
-    id;
-  let query = db.query(sql, (err, results) => {
-    if (err) throw err;
-    else {
-      console.log(results);
-      res.send(results);
-    }
-  });
-});
-
-//delete user
-router.delete("/users/:id", (req, res) => {
-  let sql = "DELETE FROM entrepreneurSignup WHERE id= ?";
-  let query = db.query(sql, [req.params.id], (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-    }
-  });
-});
-
-//get all users
-router.get("/investor", (req, res) => {
-  let sql = "SELECT * FROM investorSignupD";
-  let query = db.query(sql, (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-      console.log(results);
-    }
-  });
-});
-
-//get one user
-router.get("/investor/:id", (req, res) => {
-  let sql = "SELECT * FROM investorSignupD WHERE id= ? ";
-  let query = db.query(sql, [req.params.id], (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-      console.log(results);
-    }
-  });
-});
-
-//create a user
-router.post("/investor", (req, res) => {
-  let data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  };
-
-  let sql = "INSERT INTO investorSignupD SET ?";
-  let query = db.query(sql, data, (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-    }
-  });
-});
-
-//edit user
-router.post("/investorupdate", (req, res) => {
-  let id = req.body.id;
-  let data = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-  };
-  let sql =
-    "UPDATE investorSignup SET firstName='" +
-    req.body.firstName +
-    "',lastName='" +
-    req.body.lastName +
-    "', email='" +
-    req.body.email +
-    "', password='" +
-    req.body.password +
-    "' WHERE id=" +
-    id;
-  let query = db.query(sql, (err, results) => {
-    if (err) throw err;
-    else {
-      console.log(results);
-      res.send(results);
-    }
-  });
-});
-
-//delete user
-router.delete("/investordelete/:id", (req, res) => {
-  let sql = "DELETE FROM investorSignup WHERE id= ?";
-  let query = db.query(sql, [req.params.id], (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-    }
-  });
-});
 
 module.exports = router;

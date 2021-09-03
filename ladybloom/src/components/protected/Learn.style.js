@@ -20,7 +20,7 @@ export const LearnVideo = styled.div`
   & h2 {
     font-family: "Abril Fatface", cursive;
     color: rgb(241, 148, 138);
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
 
   & h2::after {
@@ -33,7 +33,7 @@ export const LearnVideo = styled.div`
   }
 `;
 export const LearnPads = styled.div`
-  margin: 2rem 0;
+  margin: 1rem 0;
   width: 80%;
   height: 31rem;
   display: flex;
@@ -44,7 +44,7 @@ export const LearnPads = styled.div`
   & h2 {
     font-family: "Abril Fatface", cursive;
     color: rgb(241, 148, 138);
-    margin-bottom: 3rem;
+    margin-bottom: 0;
   }
 
   & h2::after {
@@ -114,7 +114,7 @@ export const LearnTampon = styled.div`
   & h2 {
     font-family: "Abril Fatface", cursive;
     color: rgb(241, 148, 138);
-    margin-bottom: 3rem;
+    margin-bottom: 0;
   }
 
   & h2::after {
@@ -122,7 +122,7 @@ export const LearnTampon = styled.div`
     background: rgb(241, 148, 138);
     display: block;
     height: 0.2rem;
-    width: 11rem;
+    width: 5rem;
     margin: 7px auto 5px;
   }
 
@@ -136,15 +136,57 @@ export const LearnTampon = styled.div`
 
   & .left {
     width: 50%;
-    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-self: flex-start;
+    padding-top: 2.5rem;
+  }
+
+  & .left iframe {
+    width: 100%;
+    top: 0;
   }
 
   & .right {
     width: 50%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  & .right h3 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
   }
 
-  & .right iframe {
-    width: 100%;
+  & .right ul {
+    padding: 0;
+  }
+
+  & .right ul h5 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+    color: rgb(241, 148, 138);
+  }
+
+  & .right ul li {
+    font-family: "Crimson Text", serif;
+    list-style: none;
+  }
+  & .to-note {
+    //align-self: flex-start;
+  }
+
+  & .to-note h5 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+    color: rgb(241, 148, 138);
+  }
+
+  & .to-note ul li {
+    font-family: "Crimson Text", serif;
+    list-style: lower-roman;
   }
 `;
 export const LearnCups = styled.div`
@@ -158,7 +200,7 @@ export const LearnCups = styled.div`
   & h2 {
     font-family: "Abril Fatface", cursive;
     color: rgb(241, 148, 138);
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
 
   & h2::after {
@@ -180,15 +222,73 @@ export const LearnCups = styled.div`
 
   & .left {
     width: 50%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  & .left h3 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
   }
 
-  & .left iframe {
-    width: 100%;
+  & .left ul {
+    padding: 0;
+  }
+
+  & .left ul h5 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+    color: rgb(241, 148, 138);
+  }
+
+  & .left ul li {
+    font-family: "Crimson Text", serif;
+    list-style: none;
   }
 
   & .right {
     width: 50%;
     padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-self: flex-start;
+  }
+  & .right h3 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+  }
+
+  & .right ul {
+    padding: 0;
+  }
+
+  & .right ul h5 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+    color: rgb(241, 148, 138);
+  }
+
+  & .right ul li {
+    font-family: "Crimson Text", serif;
+    list-style: none;
+  }
+  & .to-note {
+    //align-self: flex-start;
+  }
+
+  & .to-note h5 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+    color: rgb(241, 148, 138);
+  }
+
+  & .to-note ul li {
+    font-family: "Crimson Text", serif;
+    list-style: lower-roman;
   }
 `;
 
@@ -203,7 +303,7 @@ export const LearnLiner = styled.div`
   & h2 {
     font-family: "Abril Fatface", cursive;
     color: rgb(241, 148, 138);
-    margin-bottom: 3rem;
+    margin-bottom: 0;
   }
 
   & h2::after {
@@ -211,7 +311,7 @@ export const LearnLiner = styled.div`
     background: rgb(241, 148, 138);
     display: block;
     height: 0.2rem;
-    width: 11rem;
+    width: 9rem;
     margin: 7px auto 5px;
   }
 
@@ -225,14 +325,40 @@ export const LearnLiner = styled.div`
 
   & .left {
     width: 50%;
-    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
   }
 
-  & .right iframe {
+  & .left iframe {
     width: 100%;
+    top: 0;
   }
 
   & .right {
     width: 50%;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  & .right h3 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+  }
+
+  & .right ul {
+    padding: 0;
+  }
+
+  & .right ul h5 {
+    font-family: "Crimson Text", serif;
+    font-weight: bold;
+    color: rgb(241, 148, 138);
+  }
+
+  & .right ul li {
+    font-family: "Crimson Text", serif;
+    list-style: none;
   }
 `;

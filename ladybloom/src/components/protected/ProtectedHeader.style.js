@@ -12,7 +12,7 @@ const media = {
 
 const ProtectedHeaderWrapper = styled.div`
   width: 100%;
-  height: 45vh;
+  height: 76vh;
   margin-top: 11vh;
   display: flex;
   justify-content: flex-start;
@@ -23,7 +23,7 @@ const ProtectedHeaderWrapper = styled.div`
     height: 100%;
     position: relative;
     background: url("/img/ladybloom/pad2.jpg");
-    filter: brightness(80%);
+    filter: brightness(60%);
     background: no repeat center center scroll;
     -webkit-background-size: cover;
     background-size: cover;
@@ -41,7 +41,7 @@ const ProtectedHeaderWrapper = styled.div`
 
   & .ladybHeadlink {
     position: absolute;
-    top: 17rem;
+    top: 22rem;
     left: 4rem;
     z-index: 1;
     color: rgba(255, 255, 255, 0.9);

@@ -133,7 +133,7 @@ const Packages = () => {
               <input
                 type="text"
                 class="form-control"
-                placeholder="Package Type"
+                placeholder="Package Type(pads/tampon/ruby cups/panty liners)"
                 value={packtype}
                 style={{
                   width: "23.9rem",

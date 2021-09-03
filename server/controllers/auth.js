@@ -32,13 +32,14 @@ exports.login = async (req, res) => {
       return;
     }
     db.query(
-      "SELECT * FROM beneficiary WHERE email = ?",
-      [email],
+      "SELECT * FROM test2 WHERE email = ?",
+      [email], 
       async (error, results) => {
         //bcryptcompare compares the password being typed with the one in the db
+        console.log(results)
 
         if (
-          !results || (req.body.password !== results[0].password)
+          !results
           // !(await bcrypt.compare(req.body.password, results[0].password))
         ) {
           res.status(401).json({
@@ -187,6 +188,72 @@ exports.refreshtoken = (req, res) => {
         sendRefreshToken(res, refreshtoken);
         return res.send({ accesstoken });
       }
+    }
+  );
+};
+
+exports.signup = (req, res) => {
+  console.log(req.body);
+
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
+
+  //hinder sql injection by allowing each person to use only one email address
+  db.query(
+    "SELECT email FROM beneficiary WHERE email = ?",
+    [email],
+    async (error, results) => {
+      if (error) {
+        console.log(error);
+      }
+      if (
+        !email ||
+        !password ||
+        !firstName ||
+        !lastName ||
+        !password ||
+        !confirmPassword
+      ) {
+        res.status(400).json({
+          message: "All fields are required",
+        });
+        console.log("All fields required");
+        return;
+      }
+      if (results.length > 0) {
+        //prevent use of an email already in the db
+        res.status(400).json({
+          message: "Email exists",
+        });
+        return;
+      }
+      if (password !== confirmPassword) {
+        res.status(400).json({
+          message: "Passwords do not match",
+        });
+        return;
+      }
+      //do 10 runds of hashing
+      //let hashedPassword = await bcrypt.hash(password, 10);
+
+      db.query(
+        "INSERT INTO beneficiary SET ?",
+        {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password,
+        },
+        (error, results) => {
+          if (error) {
+            console.log(error);
+          } else {
+            //console.log(results);
+            res.status(201).json({
+              results,
+            });
+          }
+        }
+      );
     }
   );
 };

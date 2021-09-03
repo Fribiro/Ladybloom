@@ -8,40 +8,39 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../state/user";
+import { selectMentors, selectUser ,mentorsSet} from "../../state/user";
 import Axios from "axios";
 import $ from "jquery";
 import { MentorWrapper } from "./Mentors.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
 
 const Mentors = () => {
   const [visible, setVisible] = useState(true);
-  const [users, setUsers] = useState([]);
+  // const [mentors, setUsers] = useState([]);
   const [userdetails, setUserdetails] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const user = useSelector(selectUser);
-  // if (!user.accesstoken) {
-  //   return <Redirect from="" to="login" noThrow />;
-  // }
+  const currentUser = useSelector(selectUser);
+const mentors = useSelector(selectMentors);
+const dispatch = useDispatch()
 
-  const getUser = (id) => {
-    Axios.get("http://localhost:5500/mentor").then((res) => {
-      console.log(res.data);
-      setUserdetails(res.data[0]);
-      $("#myModal").modal("show");
-    });
-  };
   useEffect(() => {
     Axios.get("http://localhost:5500/mentor").then((res) => {
       console.log(res.data);
-      setUsers(res.data);
+      dispatch(mentorsSet(res.data))
       //console.log(users);
     });
   }, []);
+
+  if (!currentUser.accesstoken) {
+    return <Redirect from="" to="login" noThrow />;
+  }
+
   const handleChange = (value) => {
     setSearchText(value);
     filterUsers(value);
   };
+  
 
   const excludeColumns = ["id"];
 
@@ -52,19 +51,46 @@ const Mentors = () => {
 
       const lowercasedValue = value.toLowerCase().trim();
       if (lowercasedValue === "") {
-        setUsers(res.data);
+      dispatch(mentorsSet(res.data));
       } else {
-        const filterUsers = users.filter((item) => {
+        const filterUsers = mentors.filter((item) => {
           return Object.keys(item).some((key) => {
             return excludeColumns.includes(key)
               ? false
               : item[key].toString().toLowerCase().includes(lowercasedValue);
           });
         });
-        setUsers(filterUsers);
+        dispatch(mentorsSet(filterUsers));
       }
     });
   };
+
+  // const submitId = (e) => {
+  //   e.preventDefault();
+  //   Axios.post("http://localhost:5500/auth/single", {})
+  //     .then((res) => {
+  //       setUsers(
+  //         users.map((val) => {
+  //           return val.id === id
+  //             ? {
+  //                 id: val.id,
+  //               }
+  //             : val;
+  //         })
+  //       );
+  //     })
+  //     .then(
+  //       (res) => {
+  //         dispatch(userSet(res.data.accesstoken));
+  //         setRedirect("/mentor-page");
+  //       },
+  //       (err) => {
+  //         setMessage(err.response.data.message);
+
+  //         //dispatch(userSet(null));
+  //       }
+  //     );
+  // };
 
   return (
     <MentorWrapper>
@@ -94,7 +120,7 @@ const Mentors = () => {
           <h2>Mentors</h2>
           <p></p>
           <div className="row">
-            {users.map((val, key) => {
+            {mentors.map((val, key) => {
               return (
                 <div className="iCardinv col-md-3 text-center" key={key}>
                   <div className="profile">
@@ -124,7 +150,7 @@ const Mentors = () => {
                       <p>{val.interests}</p>
                     </div>
                     <div className="viewmore text-center align-items-center d-flex justify-content-center pt-2 pb-2">
-                      <Link to="mentor-page">
+                      <Link to="/mentors/{val.id}">
                         <span className="details">View Details</span>
                         {/* <Icon className="arrow-right" icon={arrowRight} /> */}
                       </Link>
@@ -134,7 +160,7 @@ const Mentors = () => {
               );
             })}
             <div className="clearboth"></div>
-            {users.length === 0 && <span>No records found to display!</span>}
+            {mentors.length === 0 && <span>No records found to display!</span>}
           </div>
         </div>
       </section>

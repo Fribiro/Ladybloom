@@ -80,16 +80,6 @@ function App(props) {
   //     setLoading(false);
   //   }, 1500);
   // }, []);
-  const logoutCallback = async () => {
-    Axios.post("http://localhost:5500/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-    //create user from context
-    setUser({});
-    setRedirect("/");
-  };
-
   //get a new accesstoken if a refreshtoken exists
   useEffect(() => {
     const checkRefreshToken = () => {
@@ -109,6 +99,16 @@ function App(props) {
       });
     };
   }, []);
+
+  const logoutCallback = async () => {
+    Axios.post("http://localhost:5500/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+    //create user from context
+    setUser({});
+    setRedirect("/");
+  };
 
   if (redirect) {
     return <Redirect to={redirect} />;
@@ -130,10 +130,18 @@ function App(props) {
             <Route exact path="/mentors" component={Mentors} />
             <Route exact path="/local-authority" component={LocalAuthority} />
             <Route exact path="/menstrual-packages" component={Packages} />
-            <Route exact path="/mentor-page" component={MentorPage} />
-            <Route exact path="/administrator-page" component={AdministratorPage} />
+            <Route exact path="/mentor/:id" component={MentorPage} />
+            <Route
+              exact
+              path="/administrator-page"
+              component={AdministratorPage}
+            />
             <Route exact path="/beneficiary" component={Beneficiary} />
-            <Route exact path="/beneficiarycards" component={BeneficiaryPages} />
+            <Route
+              exact
+              path="/beneficiarycards"
+              component={BeneficiaryPages}
+            />
             <Route exact path="/educational-content" component={Learn} />
           </Switch>
         </Router>
