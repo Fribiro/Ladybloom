@@ -31,13 +31,14 @@ exports.login = async (req, res) => {
       });
       return;
     }
+
+  
+
     db.query(
-      "SELECT * FROM test2 WHERE email = ?",
-      [email], 
+      "SELECT * FROM beneficiary WHERE email = ?",
+      [email],
       async (error, results) => {
         //bcryptcompare compares the password being typed with the one in the db
-        console.log(results)
-
         if (
           !results
           // !(await bcrypt.compare(req.body.password, results[0].password))
@@ -46,13 +47,34 @@ exports.login = async (req, res) => {
             message: "Email or Password is incorrect",
           });
         } else {
-            const accesstoken = createAccessToken(results.Id);
-            const refreshtoken = createRefreshToken(results.Id);
-            results.refreshtoken = refreshtoken;
-            sendRefreshToken(res, refreshtoken);
-            sendAccessToken(req, res, accesstoken);
+          const accesstoken = createAccessToken(results.Id);
+          const refreshtoken = createRefreshToken(results.Id);
+          results.refreshtoken = refreshtoken;
+          sendRefreshToken(res, refreshtoken);
+          sendAccessToken(req, res, accesstoken, results[0].role);
         }
-        
+      }
+    );
+
+    db.query(
+      "SELECT * FROM mentor WHERE email = ?",
+      [email],
+      async (error, results) => {
+        console.log(results[0].role);
+        if (
+          !results
+          // !(await bcrypt.compare(req.body.password, results[0].password))
+        ) {
+          res.status(401).json({
+            message: "Email or Password is incorrect",
+          });
+        } else {
+          const accesstoken = createAccessToken(results.Id);
+          const refreshtoken = createRefreshToken(results.Id);
+          results.refreshtoken = refreshtoken;
+          sendRefreshToken(res, refreshtoken);
+          sendAccessToken(req, res, accesstoken, results[0].role);
+        }
       }
     );
   } catch (error) {
@@ -62,10 +84,8 @@ exports.login = async (req, res) => {
 
 //signup function for investors
 exports.signup = (req, res) => {
-  console.log(req.body);
 
-  const { firstName, lastName, email, password, confirmPassword } =
-    req.body;
+  const { firstName, lastName, email, password, confirmPassword } = req.body;
 
   //hinder sql injection by allowing each person to use only one email address
   db.query(
@@ -75,11 +95,18 @@ exports.signup = (req, res) => {
       if (error) {
         console.log(error);
       }
-      if (!email || !password || !firstName || !lastName || !password || !confirmPassword) {
+      if (
+        !email ||
+        !password ||
+        !firstName ||
+        !lastName ||
+        !password ||
+        !confirmPassword
+      ) {
         res.status(400).json({
           message: "All fields are required",
         });
-        console.log("All fields required")
+        console.log("All fields required");
         return;
       }
       if (results.length > 0) {
@@ -122,13 +149,13 @@ exports.signup = (req, res) => {
 };
 
 exports.order = (req, res) => {
-  const { fullname, email, location, packtype} = req.body;
+  const { fullname, email, location, packtype } = req.body;
 
-  if (!fullname || !email || !location ||!packtype) {
+  if (!fullname || !email || !location || !packtype) {
     res.status(400).json({
       message: "All fields are required",
     });
-     console.log("All fields are required");
+    console.log("All fields are required");
     return;
   }
 
@@ -138,13 +165,12 @@ exports.order = (req, res) => {
       fullName: fullname,
       email: email,
       location: location,
-      type: packtype
+      type: packtype,
     },
     (error, results) => {
       if (error) {
         console.log(error);
       } else {
-        console.log(results);
         res.status(201).json({
           results,
         });
@@ -153,25 +179,23 @@ exports.order = (req, res) => {
   );
 };
 
-
 //get a new access token with a refresh token
 exports.refreshtoken = (req, res) => {
   const token = req.cookies.refreshtoken;
-  
-  if (!token) return res.send("No refreshtoken");//res.send({ accesstoken: "" });
-  
+
+  if (!token) return res.send("No refreshtoken"); //res.send({ accesstoken: "" });
+
   let payload = null;
   try {
     payload = verify(token, process.env.REFRESH_TOKEN_SECRET);
   } catch (err) {
-    return res.send('Invalid token')//res.send({ accesstoken: "" });
+    return res.send("Invalid token"); //res.send({ accesstoken: "" });
   }
-  
+
   db.query(
     "SELECT * FROM beneficiary WHERE email = ?",
     [email],
     async (error, results) => {
-      
       if (results.id === payload.userId) {
         if (!results) {
           return res.send({ accesstoken: "" });

@@ -60,9 +60,14 @@ const Login = () => {
       },
     }).then(
       (res) => {
-        dispatch(userSet({accesstoken: res.data.accesstoken, userEmail:res.data.email}));
-        console.log(res.data.email);
-        setRedirect("/beneficiary");
+        console.log(res.data)
+        dispatch(userSet({accesstoken: res.data.accesstoken, userEmail:res.data.email, role: res.data.role}));
+        if(res.data.role === 'beneficiary'){
+            setRedirect("/beneficiary");
+        } else if (res.data.role === 'mentor'){
+          setRedirect('/mentors');
+        }
+        
       },
       (err) => {
         setMessage(err.response.data.message);

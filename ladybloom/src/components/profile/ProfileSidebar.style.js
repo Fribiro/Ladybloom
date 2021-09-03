@@ -84,7 +84,7 @@ const ProfileImg = styled.button`
   }
 `;
 
-const ProfileSidebar = () => {
+const ProfileSidebar = ({name, email, location}) => {
   return (
     <SidebarPageWrapper>
       <ProfileImg>
@@ -95,19 +95,19 @@ const ProfileSidebar = () => {
           <div className="icon">
             <FontAwesomeIcon icon="user" />
           </div>
-          <div className="icon-text">Virginiah Ng'ang'a</div>
+          <div className="icon-text">{name}</div>
         </li>
         <li>
           <div className="icon">
             <FontAwesomeIcon icon="envelope" />
           </div>
-          <div className="icon-text">virginiah@gmail.com</div>
+          <div className="icon-text">{email}</div>
         </li>
         <li>
           <div className="icon">
             <FontAwesomeIcon icon="map-marker-alt" />
           </div>
-          <div className="icon-text">Nairobi</div>
+          <div className="icon-text">{location}</div>
         </li>
       </Pagelinkwrapper>
     </SidebarPageWrapper>

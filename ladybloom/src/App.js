@@ -130,7 +130,7 @@ function App(props) {
             <Route exact path="/mentors" component={Mentors} />
             <Route exact path="/local-authority" component={LocalAuthority} />
             <Route exact path="/menstrual-packages" component={Packages} />
-            <Route exact path="/mentor/:id" component={MentorPage} />
+
             <Route
               exact
               path="/administrator-page"
@@ -143,6 +143,7 @@ function App(props) {
               component={BeneficiaryPages}
             />
             <Route exact path="/educational-content" component={Learn} />
+            <Route exact path="/mentor/:id" component={MentorPage} />
           </Switch>
         </Router>
         <ScrollUp showBelow={1500} />

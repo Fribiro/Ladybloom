@@ -254,18 +254,12 @@ const Beneficiary = () => {
                         </div>
                         <div className="row">
                           <div className="col-md-6">
-                            <label>User Id</label>
-                          </div>
-                          <div className="col-md-6">
-                            <p>1</p>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-md-6">
                             <label>Name</label>
                           </div>
                           <div className="col-md-6">
-                            <p>Festus Ribiro</p>
+                            <p>
+                              {val.firstName} {val.lastName}
+                            </p>
                           </div>
                         </div>
                         <div className="row">
@@ -273,7 +267,7 @@ const Beneficiary = () => {
                             <label>Email</label>
                           </div>
                           <div className="col-md-6">
-                            <p>fesri@gmail.com</p>
+                            <p>{val.email}</p>
                           </div>
                         </div>
                         <div className="row">
@@ -306,14 +300,6 @@ const Beneficiary = () => {
                           </div>
                           <div className="col-md-6">
                             <p>Web Developer and Designer</p>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-md-6">
-                            <label>Email</label>
-                          </div>
-                          <div className="col-md-6">
-                            <p>kshitighelani@gmail.com</p>
                           </div>
                         </div>
                       </div>

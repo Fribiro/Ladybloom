@@ -8,7 +8,7 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectMentors, selectUser ,mentorsSet} from "../../state/user";
+import { selectMentors, selectUser ,mentorsSet, userSet} from "../../state/user";
 import Axios from "axios";
 import $ from "jquery";
 import { MentorWrapper } from "./Mentors.style";
@@ -17,17 +17,18 @@ import { useDispatch } from "react-redux";
 
 const Mentors = () => {
   const [visible, setVisible] = useState(true);
-  // const [mentors, setUsers] = useState([]);
+  const [users, setUsers] = useState([]);
   const [userdetails, setUserdetails] = useState([]);
   const [searchText, setSearchText] = useState("");
   const currentUser = useSelector(selectUser);
-const mentors = useSelector(selectMentors);
-const dispatch = useDispatch()
+// const users = useSelector(selectMentors);
+// const dispatch = useDispatch()
 
   useEffect(() => {
     Axios.get("http://localhost:5500/mentor").then((res) => {
       console.log(res.data);
-      dispatch(mentorsSet(res.data))
+      // dispatch(mentorsSet(res.data))
+      setUsers(res.data)
       //console.log(users);
     });
   }, []);
@@ -51,16 +52,18 @@ const dispatch = useDispatch()
 
       const lowercasedValue = value.toLowerCase().trim();
       if (lowercasedValue === "") {
-      dispatch(mentorsSet(res.data));
+      // dispatch(mentorsSet(res.data));
+      setUsers(res.data)
       } else {
-        const filterUsers = mentors.filter((item) => {
+        const filterUsers = users.filter((item) => {
           return Object.keys(item).some((key) => {
             return excludeColumns.includes(key)
               ? false
               : item[key].toString().toLowerCase().includes(lowercasedValue);
           });
         });
-        dispatch(mentorsSet(filterUsers));
+        // dispatch(mentorsSet(filterUsers));
+        setUsers(filterUsers)
       }
     });
   };
@@ -120,7 +123,7 @@ const dispatch = useDispatch()
           <h2>Mentors</h2>
           <p></p>
           <div className="row">
-            {mentors.map((val, key) => {
+            {users.map((val, key) => {
               return (
                 <div className="iCardinv col-md-3 text-center" key={key}>
                   <div className="profile">
@@ -150,7 +153,7 @@ const dispatch = useDispatch()
                       <p>{val.interests}</p>
                     </div>
                     <div className="viewmore text-center align-items-center d-flex justify-content-center pt-2 pb-2">
-                      <Link to="/mentors/{val.id}">
+                      <Link to={`/mentor/${val.id}`}>
                         <span className="details">View Details</span>
                         {/* <Icon className="arrow-right" icon={arrowRight} /> */}
                       </Link>
@@ -160,7 +163,7 @@ const dispatch = useDispatch()
               );
             })}
             <div className="clearboth"></div>
-            {mentors.length === 0 && <span>No records found to display!</span>}
+            {users.length === 0 && <span>No records found to display!</span>}
           </div>
         </div>
       </section>

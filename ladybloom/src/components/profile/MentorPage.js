@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Axios from "axios";
 import styled from "styled-components";
 import Header from "../navigation/Header";
@@ -6,7 +6,7 @@ import Footer from "../navigation/Footer";
 import { PageBody, PageMain, PageTitle } from "./ProfileLayout.style";
 import ProfileSidebar from "./ProfileSidebar.style";
 import PageHeader from "./PageHeader.style";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useParams } from "react-router-dom";
 import { userSet } from "../../state/user";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../state/user";
@@ -17,6 +17,25 @@ const MentorPage = () => {
   const [text, setText] = useState("");
   const [info, setInfo] = useState("");
   const user = useSelector(selectUser);
+  const {id} = useParams()
+  const [visible, setVisible] = useState(true);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    console.log(user);
+    Axios.get(`http://localhost:5500/singlementor`,{
+      headers: {
+        id
+      },
+
+    }).then((res) => {
+      console.log(res.data);
+      setUsers(res.data);
+      console.log(res.data);
+    });
+  }, []);
+
+  console.log(id)
   if (!user.accesstoken) {
     return <Redirect from="" to="login" noThrow />;
   }
@@ -32,6 +51,8 @@ const MentorPage = () => {
       console.error(error);
     }
   };
+
+  const mentor = users.length ? users[0] : null;
 
   return (
     <div>
@@ -82,7 +103,13 @@ const MentorPage = () => {
               </div>
             </div>
             <div className="rightAsset">
-              <ProfileSidebar />
+              {mentor && (
+                <ProfileSidebar
+                  name={mentor.firstName + " " + mentor.lastName}
+                  email={mentor.email}
+                  location={mentor.location}
+                />
+              )}
             </div>
           </div>
         </PageBody>

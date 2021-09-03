@@ -56,16 +56,16 @@ router.get("/administrator", (req, res) => {
   });
 });
 //get one user
-// router.get("/beneficiary/:id", (req, res) => {
-//   let sql = "SELECT * FROM administrator WHERE id= ? ";
-//   let query = db.query(sql, [req.params.id], (err, results) => {
-//     if (err) throw err;
-//     else {
-//       res.send(results);
-//       console.log(results);
-//     }
-//   });
-// });
+router.get("/singlementor", (req, res) => {
+  let sql = "SELECT * FROM mentor WHERE id= ? ";
+  let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
 
 
 module.exports = router;
