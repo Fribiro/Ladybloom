@@ -17,7 +17,7 @@ import "jquery/dist/jquery.min.js";
 
 import $ from "jquery";
 
-const EntDetails = () => {
+const Beneficiaries = () => {
     const [id, setid] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState(0);
@@ -46,8 +46,7 @@ const EntDetails = () => {
     };
 
     const getUsers = () => {
-      Axios.get("http://localhost:5500/users").then((res) => {
-        console.log(res.data);
+      Axios.get("http://localhost:5500/users").then((res) => {;
         setUsers(res.data);
       });
     };
@@ -59,7 +58,7 @@ const EntDetails = () => {
       });
     };
     useEffect(() => {
-       Axios.get("http://localhost:5500/users").then((res) => {
+       Axios.get("http://localhost:5500/beneficiary").then((res) => {
          console.log(res.data);
          setUsers(res.data);
          //console.log(users);
@@ -86,7 +85,7 @@ const EntDetails = () => {
     };
 
     const deleteUsers = (id) => {
-      Axios.delete(`http://localhost:5500/users/${id}`).then((res) => {
+      Axios.delete(`http://localhost:5500/beneficiary/${id}`).then((res) => {
         setUsers(
           users.filter((val) => {
             return val.id !== id;
@@ -204,4 +203,4 @@ const EntDetails = () => {
     );
 }
 
-export default EntDetails
+export default Beneficiaries

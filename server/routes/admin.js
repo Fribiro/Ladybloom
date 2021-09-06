@@ -56,7 +56,7 @@ router.get("/admin", (req, res) => {
   });
 });
 
-router.get("/mentor", (req, res) => {
+router.get("/mentors", (req, res) => {
   let sql = "SELECT * FROM mentor";
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
@@ -66,7 +66,7 @@ router.get("/mentor", (req, res) => {
     }
   });
 });
-router.get("/administrator", (req, res) => {
+router.get("/administrators", (req, res) => {
   let sql = "SELECT * FROM administrator";
   let query = db.query(sql, (err, results) => {
     if (err) throw err;
@@ -100,6 +100,17 @@ router.get("/singleadministrator", (req, res) => {
 router.get("/singlebeneficiary", (req, res) => {
   let sql = "SELECT * FROM beneficiary WHERE id= ? ";
   let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+
+router.get("/packageorder", (req, res) => {
+  let sql = "SELECT * FROM packageOrder";
+  let query = db.query(sql, (err, results) => {
     if (err) throw err;
     else {
       res.send(results);

@@ -41,7 +41,7 @@ export const DonationsWrapper = styled.div`
     backdrop-filter: brightness(40%);
     -webkit-background-size: cover;
     background-size: cover;
-    filter: brightness(70%);
+    filter: brightness(80%);
     /* z-index: 1; */
   }
 

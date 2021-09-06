@@ -16,13 +16,15 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import Dashboard from "./components/Dashboard";
-import EntDetails from "./components/EntDetails";
-import InvDetails from "./components/InvDetails";
 import Payments from "./components/Payments";
 import Settings from "./components/Settings";
 import Sidebar from "./components/Sidebar";
 import InvestorPosts from "./components/investorPosts";
 import EntrepreneurPosts from "./components/entrepreneurPosts";
+import Beneficiaries from "./components/Beneficiaries";
+import Mentors from './components/Mentors'
+import Administrators from './components/Administrators'
+import Packages from "./components/Packages";
 
 library.add(
   fab,
@@ -44,14 +46,17 @@ function App() {
         <Sidebar />
         <Switch>
           <Route exact path="/" component={Dashboard} />
-          <Route exact path="/entrepreneurs" component={EntDetails} />
-          <Route exact path="/investors" component={InvDetails} />
-          <Route
+          <Route exact path="/beneficiaries" component={Beneficiaries} />
+          <Route exact path="/mentors" component={Mentors} />
+          <Route exact path="/administrators" component={Administrators} />
+          <Route exact path="/investors" component={Mentors} />
+          <Route exact path="/packages" component={Packages} />
+          {/* <Route
             exact
             path="/entrepreneurPosts"
             component={EntrepreneurPosts}
           />
-          <Route exact path="/investorPosts" component={InvestorPosts} />
+          <Route exact path="/investorPosts" component={InvestorPosts} /> */}
           <Route exact path="/payments" component={Payments} />
           <Route exact path="/settings" component={Settings} />
         </Switch>

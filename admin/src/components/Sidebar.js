@@ -37,45 +37,27 @@ const Sidebar = () => {
                 <input type="checkbox" id="btn" />
                 <ul className="subMenu" id="subMenu">
                   <li>
-                    <Link className="" to="/entrepreneurs">
+                    <Link className="" to="/beneficiaries">
                       Beneficiary
                     </Link>
                   </li>
                   <li>
-                    <Link className="" to="/investors">
+                    <Link className="" to="/mentors">
                       Mentors
                     </Link>
                   </li>
                   <li>
-                    <Link className="" to="/investors">
+                    <Link className="" to="/administrators">
                       Administrators
                     </Link>
                   </li>
                 </ul>
               </li>
-              <li className="dropmenu">
-                <Link>
-                  <FontAwesomeIcon icon="folder" size="lg" />
+              <li>
+                <Link to="/packages">
+                  <FontAwesomeIcon icon="" size="lg" />
+                  <span>Package</span>
                 </Link>
-                <label htmlFor="btn-2">Posts</label>
-                <input type="checkbox" id="btn-2" />
-                <ul className="subMenu" id="subMenu">
-                  <li>
-                    <Link className="" to="/entrepreneurPosts">
-                      Beneficiary
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="" to="/investorPosts">
-                      Mentors
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="" to="/investorPosts">
-                      Administrators
-                    </Link>
-                  </li>
-                </ul>
               </li>
               <li>
                 <Link to="/settings">

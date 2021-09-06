@@ -16,7 +16,7 @@ import "jquery/dist/jquery.min.js";
 
 import $ from "jquery";
 
-const InvDetails = () => {
+const Mentors = () => {
   const [Id, setId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState(0);
@@ -25,7 +25,7 @@ const InvDetails = () => {
   const [userdetails, setUserdetails] = useState([]);
 
   const addUsers = () => {
-    Axios.post("http://localhost:5500/investor", {
+    Axios.post("http://localhost:5500/mentors", {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -42,20 +42,20 @@ const InvDetails = () => {
   };
 
   const getUsers = () => {
-    Axios.get("http://localhost:5500/investor").then((res) => {
+    Axios.get("http://localhost:5500/mentors").then((res) => {
       console.log(res.data);
       setUsers(res.data);
     });
   };
   useEffect(() => {
-    Axios.get("http://localhost:5500/investor").then((res) => {
+    Axios.get("http://localhost:5500/mentors").then((res) => {
       console.log(res.data);
       setUsers(res.data);
       //console.log(users);
     });
   }, []);
   const updateUsers = (Id) => {
-    Axios.put("http://localhost:5500/investorupdate", {}).then((res) => {
+    Axios.put("http://localhost:5500/mentors", {}).then((res) => {
       setUsers(
         users.map((val) => {
           return val.Id === Id
@@ -71,7 +71,7 @@ const InvDetails = () => {
   };
 
   const deleteUsers = (Id) => {
-    Axios.delete(`http://localhost:5500/investordelete/${Id}`).then((res) => {
+    Axios.delete(`http://localhost:5500/mentors/${Id}`).then((res) => {
       setUsers(
         users.filter((val) => {
           return val.Id !== Id;
@@ -91,9 +91,9 @@ const InvDetails = () => {
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
-                <th>investmentRange</th>
                 <th>location</th>
-                <th>expertise</th>
+                <th>Profession</th>
+                <th>Interests</th>
               </tr>
             </thead>
             <tbody>
@@ -104,9 +104,9 @@ const InvDetails = () => {
                     <td>{val.firstName}</td>
                     <td>{val.lastName}</td>
                     <td>{val.email}</td>
-                    <td>{val.investmentRange}</td>
                     <td>{val.location}</td>
-                    <td>{val.expertise}</td>
+                    <td>{val.profession}</td>
+                    <td>{val.interests}</td>
                     <td>
                       <Tooltip title="View user" placement="top">
                         <IconButton
@@ -189,4 +189,4 @@ const InvDetails = () => {
   );
 };
 
-export default InvDetails;
+export default Mentors;
