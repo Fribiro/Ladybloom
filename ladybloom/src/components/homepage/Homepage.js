@@ -5,18 +5,22 @@ import Homeheader from './HomeHeader'
 import UserCards from './UserCards'
 import Mission from './Mission'
 import Partners from './Partners'
+import HomeAbout from './HomeAbout'
+import Donations from './Donations'
 
 const Homepage = () => {
     return (
-        <div>
-            <Header />
-            <Homeheader />
-            <Mission />
-            <UserCards />
-            <Partners />
-            <Footer />
-        </div>
-    )
+      <div>
+        <Header />
+        <Homeheader />
+        <HomeAbout />
+        <UserCards />
+        <Mission />
+        <Donations />
+        <Partners />
+        <Footer />
+      </div>
+    );
 }
 
 export default Homepage

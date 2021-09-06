@@ -133,7 +133,7 @@ const BeneficiaryPages = () => {
                       <p>Student</p>
                     </div>
                     <div className="viewmore text-center align-items-center d-flex justify-content-center pt-2 pb-2">
-                      <Link to="InvViewProfile">
+                      <Link to={`/beneficiaryview/${val.id}`}>
                         <span className="details">View Details</span>
                         {/* <Icon className="arrow-right" icon={arrowRight} /> */}
                       </Link>

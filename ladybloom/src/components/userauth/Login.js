@@ -65,12 +65,14 @@ const Login = () => {
         if(res.data.role === 'beneficiary'){
             setRedirect("/beneficiary");
         } else if (res.data.role === 'mentor'){
-          setRedirect('/mentors');
+          setRedirect("/mentorProfile");
+        } else if (res.data.role === 'administrator') {
+          setRedirect("/administratorProfile");
         }
         
       },
       (err) => {
-        setMessage(err.response.data.message);
+        setMessage(err.response.message);
       }
     );
   };
@@ -136,14 +138,24 @@ const Login = () => {
                 >
                   Login
                 </button>
-                <small className="text-right">
-                  <Link
-                    to="/forgotpassword"
-                    style={{ color: "rgb(241, 148, 138)" }}
-                  >
-                    Forgot password
-                  </Link>
-                </small>
+                <div className="bottom">
+                  <small className="text-left">
+                    <Link
+                      to="/signup"
+                      style={{ color: "rgb(241, 148, 138)" }}
+                    >
+                      Create Account
+                    </Link>
+                  </small>
+                  <small className="text-right">
+                    <Link
+                      to="/forgotpassword"
+                      style={{ color: "rgb(241, 148, 138)" }}
+                    >
+                      Forgot password
+                    </Link>
+                  </small>
+                </div>
               </div>
             </div>
           </div>

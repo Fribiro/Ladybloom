@@ -151,7 +151,7 @@ export default class InvestorSignup extends Component {
                     )}
                   </div>
                 </div>
-                <div className="input-group">
+                {/* <div className="input-group">
                   <label for="role">User Role</label>
                   <select id="role" name="role">
                     <option disabled selected value>
@@ -161,7 +161,7 @@ export default class InvestorSignup extends Component {
                     <option value="mentor">Mentor</option>
                     <option value="benefciary">Beneficiary</option>
                   </select>
-                </div>
+                </div> */}
                 <div className="input-group">
                   <label htmlFor="email">Email</label>
                   <input

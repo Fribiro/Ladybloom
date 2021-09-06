@@ -35,6 +35,27 @@ router.get("/benef", (req, res) => {
   });
 });
 
+router.get("/ment", (req, res) => {
+  let sql = "SELECT * FROM mentor WHERE email= ? ";
+  let query = db.query(sql, [req.headers.email], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+router.get("/admin", (req, res) => {
+  let sql = "SELECT * FROM administrator WHERE email= ? ";
+  let query = db.query(sql, [req.headers.email], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+
 router.get("/mentor", (req, res) => {
   let sql = "SELECT * FROM mentor";
   let query = db.query(sql, (err, results) => {
@@ -58,6 +79,26 @@ router.get("/administrator", (req, res) => {
 //get one user
 router.get("/singlementor", (req, res) => {
   let sql = "SELECT * FROM mentor WHERE id= ? ";
+  let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+router.get("/singleadministrator", (req, res) => {
+  let sql = "SELECT * FROM administrator WHERE id= ? ";
+  let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+router.get("/singlebeneficiary", (req, res) => {
+  let sql = "SELECT * FROM beneficiary WHERE id= ? ";
   let query = db.query(sql, [req.headers.id], (err, results) => {
     if (err) throw err;
     else {

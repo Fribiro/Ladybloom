@@ -68,32 +68,6 @@ const Mentors = () => {
     });
   };
 
-  // const submitId = (e) => {
-  //   e.preventDefault();
-  //   Axios.post("http://localhost:5500/auth/single", {})
-  //     .then((res) => {
-  //       setUsers(
-  //         users.map((val) => {
-  //           return val.id === id
-  //             ? {
-  //                 id: val.id,
-  //               }
-  //             : val;
-  //         })
-  //       );
-  //     })
-  //     .then(
-  //       (res) => {
-  //         dispatch(userSet(res.data.accesstoken));
-  //         setRedirect("/mentor-page");
-  //       },
-  //       (err) => {
-  //         setMessage(err.response.data.message);
-
-  //         //dispatch(userSet(null));
-  //       }
-  //     );
-  // };
 
   return (
     <MentorWrapper>

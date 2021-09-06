@@ -1,129 +1,64 @@
 import React from 'react'
-import styled from 'styled-components'
 import {Link} from 'react-router-dom'
-
-const UserCardsWrapper = styled.div`
-  margin: 2rem 2rem;
-  height: 30rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  //background: rgb(110, 108, 108);
-
-  & .user {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    flex-direction: row;
-    height: 50%;
-  }
-
-  & .parentCol {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
-  & .col1 {
-    width: 50%;
-    height: 100%;
-  }
-
-  & .col1 img {
-    width: 100%;
-    height: 100%;
-    filter: brightness(70%);
-  }
-
-  & .col2 {
-    width: 50%;
-    height: 100%;
-    padding: 1rem;
-  }
-
-  & .col2 h5 {
-    font-family: "Crimson Text", serif;
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-
-  & .col2 p {
-    line-height: 1.5rem;
-    font-family: "Crimson Text", serif;
-    margin-bottom: 1rem;
-  }
-
-  & .col2 a {
-    color: rgb(241, 148, 138);
-  }
-`;
+import { UserCardsWrapper } from './UserCards.style';
+import $ from 'jquery'
 
 const UserCards = () => {
+    $(".hover").mouseleave(function () {
+      $(this).removeClass("hover");
+    });
+
     return (
       <UserCardsWrapper>
-        <div className="user">
-          <div className="parentCol">
-            <div className="col1">
-              <img src="./img/ladybloom/recepient.jpeg" alt="" />
+        <h2 id='userHead'>Users</h2>
+        <div className="parent-card">
+          <figure class="snip1321">
+            <img src="./img/ladybloom/pad3.jpg" alt="sq-sample26" />
+            <div class="square">
+              <div></div>
             </div>
-            <div className="col2">
-              <h5>Beneficiary</h5>
+            <h2 className="overlay-caption">Beneficiaries</h2>
+            <figcaption>
               <p>
-                This enables them to gain a broader knowledge on menstrual
-                hygiene and easily reach out to verified mentors on any problems
-                that might occur during this period.
+                Are you in need but fear speaking out due to the stigma
+                sorrounding menstrual hygiene? Well fear no more because you're
+                in the right place.
               </p>
-              <Link to="beneficiary">View More</Link>
+              <Link to="/beneficiarycards">View More</Link>
+            </figcaption>
+          </figure>
+          <figure class="snip1321 ">
+            <img src="./img/sshow4.jpg" alt="sq-sample27" />
+            <div class="square">
+              <div></div>
             </div>
-          </div>
-          <div className="parentCol">
-            <div className="col1">
-              <img src="./img/ladybloom/donate1.jpeg" alt="" />
-            </div>
-            <div className="col2">
-              <h5>Donor</h5>
+            <h2 className="overlay-caption">Mentors</h2>
+            <figcaption>
+              <i class="ion-stats-bars"></i>
               <p>
-                This enables them to gain a broader knowledge on menstrual
-                hygiene and easily reach out to verified mentors on any problems
-                that might occur during this period.
+                Does impacting lives resonate with you? Is menstrual hygiene and
+                matters partaining to menstrual health dear to your heart? Reach
+                out to us and join our ever growing pool of mentors.
               </p>
-              <Link to="donor">View More</Link>
+              <Link to="/mentors">View More</Link>
+            </figcaption>
+          </figure>
+          <figure class="snip1321">
+            <img src="./img/ladybloom/cup.jpg" alt="sq-sample28" />
+            <div class="square">
+              <div></div>
             </div>
-          </div>
-        </div>
-        <div className="user">
-          <div className="parentCol">
-            <div className="col2">
-              <h5>Mentor</h5>
+            <h2 className="overlay-caption">Administrators</h2>
+            <figcaption>
+              <i class="ion-share"></i>
               <p>
-                This enables them to gain a broader knowledge on menstrual
-                hygiene and easily reach out to verified mentors on any problems
-                that might occur during this period.
+                We work hand in hand with various administrative officers spread
+                all over the country to ensure our aid reaches every girl and
+                woman to the grass roots.
               </p>
-              <Link to="mentor">View More</Link>
-            </div>
-            <div className="col1">
-              <img src="./img/ladybloom/mentor.jpeg" alt="" />
-            </div>
-          </div>
-          <div className="parentCol">
-            <div className="col2">
-              <h5>Local Authority</h5>
-              <p>
-                This enables them to gain a broader knowledge on menstrual
-                hygiene and easily reach out to verified mentors on any problems
-                that might occur during this period.
-              </p>
-              <Link to="local-authority">View More</Link>
-            </div>
-            <div className="col1">
-              <img src="./img/ladybloom/dc.jpeg" alt="" />
-            </div>
-          </div>
+              <Link to="/local-authority">View More</Link>
+            </figcaption>
+          </figure>
         </div>
       </UserCardsWrapper>
     );

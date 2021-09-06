@@ -42,6 +42,10 @@ import AdministratorPage from './components/profile/AdministratorPage'
 import Beneficiary from "./components/profile/Beneficiary";
 import BeneficiaryPages from "./components/protected/BeneficiaryPages";
 import Learn from "./components/protected/Learn";
+import BeneficiaryPage from "./components/protected/BeneficiaryPages";
+import BeneficiaryProfile from "./components/profile/BeneficiaryProfile";
+import Administrator from "./components/profile/Administrator";
+import Mentor from "./components/profile/Mentor";
 
 library.add(
   fab,
@@ -137,6 +141,8 @@ function App(props) {
               component={AdministratorPage}
             />
             <Route exact path="/beneficiary" component={Beneficiary} />
+            <Route exact path="/mentorProfile" component={Mentor} />
+            <Route exact path="/administratorProfile" component={Administrator} />
             <Route
               exact
               path="/beneficiarycards"
@@ -144,6 +150,16 @@ function App(props) {
             />
             <Route exact path="/educational-content" component={Learn} />
             <Route exact path="/mentor/:id" component={MentorPage} />
+            <Route
+              exact
+              path="/administrator/:id"
+              component={AdministratorPage}
+            />
+            <Route
+              exact
+              path="/beneficiaryview/:id"
+              component={BeneficiaryProfile}
+            />
           </Switch>
         </Router>
         <ScrollUp showBelow={1500} />

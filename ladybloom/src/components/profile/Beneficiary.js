@@ -173,14 +173,6 @@ const Beneficiary = () => {
                   <li>
                     {val.firstName} {val.lastName}
                   </li>
-                  <li
-                    className="profileNavClickable"
-                    onClick={() => {
-                      setVisible(true);
-                    }}
-                  >
-                    Profile
-                  </li>
                   <li>{val.location}</li>
                   <li>{val.email}</li>
                 </ul>

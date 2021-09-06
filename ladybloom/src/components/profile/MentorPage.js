@@ -34,8 +34,6 @@ const MentorPage = () => {
       console.log(res.data);
     });
   }, []);
-
-  console.log(id)
   if (!user.accesstoken) {
     return <Redirect from="" to="login" noThrow />;
   }

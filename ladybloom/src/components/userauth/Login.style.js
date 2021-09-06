@@ -175,4 +175,16 @@ export const LoginWrapper = styled.div`
   .show {
     visibility: visible;
   }
+
+  .bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .text-left {
+    width: 50%;
+  }
+  .text-right {
+    width: 50%;
+  }
 `;

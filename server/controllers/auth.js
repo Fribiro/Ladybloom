@@ -77,10 +77,34 @@ exports.login = async (req, res) => {
         }
       }
     );
+
+    db.query(
+      "SELECT * FROM administrator WHERE email = ?",
+      [email],
+      async (error, results) => {
+        if (
+          !results
+          // !(await bcrypt.compare(req.body.password, results[0].password))
+        ) {
+          res.status(401).json({
+            message: "Email or Password is incorrect",
+          });
+        } else {
+          const accesstoken = createAccessToken(results.Id);
+          const refreshtoken = createRefreshToken(results.Id);
+          results.refreshtoken = refreshtoken;
+          sendRefreshToken(res, refreshtoken);
+          sendAccessToken(req, res, accesstoken, results[0].role);
+        }
+      }
+    );
   } catch (error) {
     console.log(error);
+    return res.send("User doesn't exist.");
   }
 };
+
+
 
 //signup function for investors
 exports.signup = (req, res) => {
@@ -166,6 +190,38 @@ exports.order = (req, res) => {
       email: email,
       location: location,
       type: packtype,
+    },
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        res.status(201).json({
+          results,
+        });
+      }
+    }
+  );
+};
+
+exports.donations = (req, res) => {
+  const { fullname, email, phone, date, transcode, amount } = req.body;
+
+  if (!fullname || !email || !phone || !date || !transcode || !amount) {
+    res.status(400).json({
+      message: "All fields are required",
+    });
+    console.log("All fields are required");
+    return;
+  }
+
+  db.query(
+    "INSERT INTO donations SET ?",
+    {
+      fullName: fullname,
+      email: email,
+      date: date,
+      transcode: transcode,
+      amount: amount,
     },
     (error, results) => {
       if (error) {
