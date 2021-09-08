@@ -13,11 +13,12 @@ const createRefreshToken = (userId) => {
   });
 };
 
-const sendAccessToken = (req, res, accesstoken, role) => {
+const sendAccessToken = (req, res, accesstoken, role, location) => {
   res.json({
     accesstoken,
     email: req.body.email,
-    role
+    role,
+    location
   });
 };
 

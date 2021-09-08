@@ -18,33 +18,33 @@ const Administrator = () => {
   const [users, setUsers] = useState([]);
   const user = useSelector(selectUser);
   const [menss, setMenss] = useState();
+  const [area, setArea] = useState();
 
   useEffect(() => {
     console.log(user);
     Axios.get("http://localhost:5500/admin", {
       headers: {
         email: user.accesstoken.userEmail,
+        location: user.accesstoken.area
       },
     }).then((res) => {
-      console.log(res.data);
       setUsers(res.data);
-      console.log(res.data);
+      setArea(user.accesstoken.area);
+      //console.log(area)
     });
   }, []);
 
   useEffect(() => {
-    console.log(user);
-    Axios.get("http://localhost:5500/packageorder").then((res) => {
+    Axios.get("http://localhost:5500/apackageorder", {
+      headers: {
+        email: user.accesstoken.userEmail,
+        location: user.accesstoken.area
+      },
+    }).then((res) => {
       setMenss(res.data);
-      console.log(menss)
+      //console.log(menss)
     });
   }, []);
-
-  const getPackageOrders = () => {
-    Axios.get("http://localhost:5500/packageorder", {}).then((res) => {
-      setMenss(res.data);
-    });
-  };
 
   const administratorProfile = users.length ? users[0] : null;
 

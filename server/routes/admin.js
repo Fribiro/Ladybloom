@@ -119,5 +119,16 @@ router.get("/packageorder", (req, res) => {
   });
 });
 
+router.get("/apackageorder", (req, res) => {
+  let sql = "SELECT * FROM packageOrder WHERE location= ?";
+  let query = db.query(sql, [req.headers.location], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+
 
 module.exports = router;

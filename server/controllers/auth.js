@@ -60,7 +60,6 @@ exports.login = async (req, res) => {
       "SELECT * FROM mentor WHERE email = ?",
       [email],
       async (error, results) => {
-        console.log(results[0].role);
         if (
           !results
           // !(await bcrypt.compare(req.body.password, results[0].password))
@@ -73,7 +72,13 @@ exports.login = async (req, res) => {
           const refreshtoken = createRefreshToken(results.Id);
           results.refreshtoken = refreshtoken;
           sendRefreshToken(res, refreshtoken);
-          sendAccessToken(req, res, accesstoken, results[0].role);
+          sendAccessToken(
+            req,
+            res,
+            accesstoken,
+            results[0].role
+          );
+
         }
       }
     );
@@ -94,7 +99,13 @@ exports.login = async (req, res) => {
           const refreshtoken = createRefreshToken(results.Id);
           results.refreshtoken = refreshtoken;
           sendRefreshToken(res, refreshtoken);
-          sendAccessToken(req, res, accesstoken, results[0].role);
+          sendAccessToken(
+            req,
+            res,
+            accesstoken,
+            results[0].role,
+            results[0].location
+          );
         }
       }
     );
