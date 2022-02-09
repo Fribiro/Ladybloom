@@ -47,8 +47,8 @@ exports.login = async (req, res) => {
             message: "Email or Password is incorrect",
           });
         } else {
-          const accesstoken = createAccessToken(results.Id);
-          const refreshtoken = createRefreshToken(results.Id);
+          const accesstoken = createAccessToken(results.id);
+          const refreshtoken = createRefreshToken(results.id);
           results.refreshtoken = refreshtoken;
           sendRefreshToken(res, refreshtoken);
           sendAccessToken(req, res, accesstoken, results[0].role);
@@ -68,8 +68,8 @@ exports.login = async (req, res) => {
             message: "Email or Password is incorrect",
           });
         } else {
-          const accesstoken = createAccessToken(results.Id);
-          const refreshtoken = createRefreshToken(results.Id);
+          const accesstoken = createAccessToken(results.id);
+          const refreshtoken = createRefreshToken(results.id);
           results.refreshtoken = refreshtoken;
           sendRefreshToken(res, refreshtoken);
           sendAccessToken(
@@ -95,8 +95,8 @@ exports.login = async (req, res) => {
             message: "Email or Password is incorrect",
           });
         } else {
-          const accesstoken = createAccessToken(results.Id);
-          const refreshtoken = createRefreshToken(results.Id);
+          const accesstoken = createAccessToken(results.id);
+          const refreshtoken = createRefreshToken(results.id);
           results.refreshtoken = refreshtoken;
           sendRefreshToken(res, refreshtoken);
           sendAccessToken(

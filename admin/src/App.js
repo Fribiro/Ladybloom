@@ -25,6 +25,8 @@ import Beneficiaries from "./components/Beneficiaries";
 import Mentors from './components/Mentors'
 import Administrators from './components/Administrators'
 import Packages from "./components/Packages";
+import AddMentor from "./components/AddMentor";
+import AddAdministrator from "./components/AddAdministrator";
 
 library.add(
   fab,
@@ -48,17 +50,15 @@ function App() {
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/beneficiaries" component={Beneficiaries} />
           <Route exact path="/mentors" component={Mentors} />
+          <Route exact path="/create-mentors" component={AddMentor} />
           <Route exact path="/administrators" component={Administrators} />
+          <Route
+            exact
+            path="/create-administrators"
+            component={AddAdministrator}
+          />
           <Route exact path="/investors" component={Mentors} />
           <Route exact path="/packages" component={Packages} />
-          {/* <Route
-            exact
-            path="/entrepreneurPosts"
-            component={EntrepreneurPosts}
-          />
-          <Route exact path="/investorPosts" component={InvestorPosts} /> */}
-          <Route exact path="/payments" component={Payments} />
-          <Route exact path="/settings" component={Settings} />
         </Switch>
       </Router>
     </div>

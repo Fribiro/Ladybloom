@@ -137,7 +137,6 @@ const Mentor = () => {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    console.log(user);
     Axios.get("http://localhost:5500/ment", {
       headers: {
         email: user.accesstoken.userEmail,

@@ -136,4 +136,13 @@ export const AdministratorWrapper = styled.div`
   .right-order {
     width: 60%;
   }
+  .issueBtn {
+    outline: none;
+    border: none;
+    background: rgb(241, 148, 138);
+    border-radius: 1rem;
+    width: 4rem;
+    padding: .2rem;
+    align-self: center;
+  }
 `;

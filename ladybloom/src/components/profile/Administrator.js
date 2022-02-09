@@ -17,7 +17,7 @@ const Administrator = () => {
   const [visible, setVisible] = useState(true);
   const [users, setUsers] = useState([]);
   const user = useSelector(selectUser);
-  const [menss, setMenss] = useState();
+  const [menss, setMenss] = useState([]);
   const [area, setArea] = useState();
 
   useEffect(() => {
@@ -289,7 +289,7 @@ const Administrator = () => {
                           <td>{val.location}</td>
                           <td>{val.type}</td>
                           <td>{val.status}</td>
-                          <td></td>
+                          <td><button className='issueBtn'>Issue</button></td>
                         </tr>
                       );
                     })}

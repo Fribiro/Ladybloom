@@ -130,5 +130,70 @@ router.get("/apackageorder", (req, res) => {
   });
 });
 
+//get one user
+router.get("/investor/:id", (req, res) => {
+  let sql = "SELECT * FROM investorSignup WHERE id= ? ";
+  let query = db.query(sql, [req.params.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+      console.log(results);
+    }
+  });
+});
+
+//delete
+router.delete("/beneficiarydel", (req, res) => {
+  let sql = "DELETE FROM beneficiary WHERE id= ?";
+  let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+    }
+  });
+});
+
+router.delete("/mentordel", (req, res) => {
+  let sql = "DELETE FROM mentor WHERE id= ?";
+  let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+    }
+  });
+});
+
+router.delete("/administratordel", (req, res) => {
+  let sql = "DELETE FROM administrator WHERE id= ?";
+  let query = db.query(sql, [req.headers.id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+    }
+  });
+});
+
+//suspend user account
+router.put("/suspendBenf", (req, res) => {
+  const id = req.body.id
+  let sql = "UPDATE beneficiary SET suspend = 'true' WHERE id= ?";
+  let query = db.query(sql, [id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+    }
+  });
+});
+
+router.put("/enableBenf", (req, res) => {
+  const id = req.body.id;
+  let sql = "UPDATE beneficiary SET suspend = 'false' WHERE id= ?";
+  let query = db.query(sql, [id], (err, results) => {
+    if (err) throw err;
+    else {
+      res.send(results);
+    }
+  });
+});
 
 module.exports = router;

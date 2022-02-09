@@ -1,206 +1,101 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { BrowserRouter as Link } from "react-router-dom";
+import Axios from "axios";
 
 const Dashboard = () => {
+    const [administrators, setadministrators] = useState([]);
+    const [mentors, setMentors] = useState([]);
+    const [beneficiaries, setBeneficiaries] = useState([]);
+
+    useEffect(() => {
+      Axios.get("http://localhost:5500/beneficiary").then((res) => {
+        setBeneficiaries(res.data);
+      });
+    }, []);
+
+    useEffect(() => {
+      Axios.get("http://localhost:5500/administrators").then((res) => {
+        setadministrators(res.data);
+      });
+    }, []);
+
+    useEffect(() => {
+      Axios.get("http://localhost:5500/mentors").then((res) => {
+        setMentors(res.data);
+      });
+    }, []);
+
+    const admNo = administrators.length;
+    const benfNo = beneficiaries.length;
+    const mentNo = mentors.length;
+
     return (
-    <div>
+      <div>
         <div class="main-content">
-        
-        <header>
+          <header>
             <div class="search-wrapper">
-                <span class="ti-search"></span>
-                <input type="search" placeholder="Search"/>
+              <span class="ti-search"></span>
+              <input type="search" placeholder="Search" />
             </div>
-            
+
             <div class="social-icons">
-                <span class="ti-bell"></span>
-                <span class="ti-comment"></span>
-               
+              <span class="ti-bell"></span>
+              <span class="ti-comment"></span>
             </div>
-        </header>
-        
-        <main>
-            
+          </header>
+
+          <main>
             <h2 class="dash-title">Overview</h2>
-            
+
             <div class="dash-cards">
-                <div class="card-single">
-                    <div class="card-body">
-                        <span class="ti-briefcase"></span>
-                        <div>
-                            <h5>Beneficiaries</h5>
-                            <h4>17</h4>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="">View all</a>
-                    </div>
+              <div class="card-single">
+                <div class="card-body">
+                  <span class="ti-briefcase"></span>
+                  <div>
+                    <h5>Beneficiaries</h5>
+                    <h4>{benfNo}</h4>
+                  </div>
                 </div>
-                
-                <div class="card-single">
-                    <div class="card-body">
-                        <span class="ti-reload"></span>
-                        <div>
-                            <h5>Mentors</h5>
-                            <h4>7</h4>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="">View all</a>
-                    </div>
+                <div class="card-footer">
+                  <Link className="" to="/beneficiaries">
+                    View All
+                  </Link>
                 </div>
-                
-                <div class="card-single">
-                    <div class="card-body">
-                        <span class="ti-check-box"></span>
-                        <div>
-                            <h5>Administrators</h5>
-                            <h4>1</h4>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a href="">View all</a>
-                    </div>
+              </div>
+
+              <div class="card-single">
+                <div class="card-body">
+                  <span class="ti-reload"></span>
+                  <div>
+                    <h5>Mentors</h5>
+                    <h4>{mentNo}</h4>
+                  </div>
                 </div>
+                <div class="card-footer">
+                  <Link className="" to="/mentors">
+                    View All
+                  </Link>
+                </div>
+              </div>
+
+              <div class="card-single">
+                <div class="card-body">
+                  <span class="ti-check-box"></span>
+                  <div>
+                    <h5>Administrators</h5>
+                    <h4>{admNo}</h4>
+                  </div>
+                </div>
+
+                <Link className="" to="/administrators">
+                  <div class="card-footer">View All</div>
+                </Link>
+              </div>
             </div>
-            
-            
-            {/* <section class="recent">
-                <div class="activity-grid">
-                    <div class="activity-card">
-                        <h3>Recent activity</h3>
-                        
-                        <div class="table-responsive">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Project</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Team</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>App Development</td>
-                                        <td>15 Aug, 2020</td>
-                                        <td>22 Aug, 2020</td>
-                                        <td class="td-team">
-                                            <div class="img-1"></div>
-                                            <div class="img-2"></div>
-                                            <div class="img-3"></div>
-                                        </td>
-                                        <td>
-                                            <span class="badge success">Success</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Logo Design</td>
-                                        <td>15 Aug, 2020</td>
-                                        <td>22 Aug, 2020</td>
-                                        <td class="td-team">
-                                            <div class="img-1"></div>
-                                            <div class="img-2"></div>
-                                            <div class="img-3"></div>
-                                        </td>
-                                        <td>
-                                            <span class="badge warning">Processing</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Server setup</td>
-                                        <td>15 Aug, 2020</td>
-                                        <td>22 Aug, 2020</td>
-                                        <td class="td-team">
-                                            <div class="img-1"></div>
-                                            <div class="img-2"></div>
-                                            <div class="img-3"></div>
-                                        </td>
-                                        <td>
-                                            <span class="badge success">Success</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Front-end Design</td>
-                                        <td>15 Aug, 2020</td>
-                                        <td>22 Aug, 2020</td>
-                                        <td class="td-team">
-                                            <div class="img-1"></div>
-                                            <div class="img-2"></div>
-                                            <div class="img-3"></div>
-                                        </td>
-                                        <td>
-                                            <span class="badge warning">Processing</span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Web Development</td>
-                                        <td>15 Aug, 2020</td>
-                                        <td>22 Aug, 2020</td>
-                                        <td class="td-team">
-                                            <div class="img-1"></div>
-                                            <div class="img-2"></div>
-                                            <div class="img-3"></div>
-                                        </td>
-                                        <td>
-                                            <span class="badge success">Success</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
-                    <div class="summary">
-                        <div class="summary-card">
-                            <div class="summary-single">
-                                <span class="ti-id-badge"></span>
-                                <div>
-                                    <h5>196</h5>
-                                    <small>Number of staff</small>
-                                </div>
-                            </div>
-                            <div class="summary-single">
-                                <span class="ti-calendar"></span>
-                                <div>
-                                    <h5>16</h5>
-                                    <small>Number of leave</small>
-                                </div>
-                            </div>
-                            <div class="summary-single">
-                                <span class="ti-face-smile"></span>
-                                <div>
-                                    <h5>12</h5>
-                                    <small>Profile update request</small>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="bday-card">
-                            <div class="bday-flex">
-                                <div class="bday-img"></div>
-                                <div class="bday-info">
-                                    <h5>Dwayne F. Sanders</h5>
-                                    <small>Birthday Today</small>
-                                </div>
-                            </div>
-                            
-                            <div class="text-center">
-                                <button>
-                                    <span class="ti-gift"></span>
-                                    Wish him
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-            
-        </main>
-        
+          </main>
         </div>
-    </div>
-    )
+      </div>
+    );
 }
 
 export default Dashboard
