@@ -21,22 +21,13 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(cors());
+//allow the client to communicate with the api
+const corsOptions = {
+  origin: true,
+  credentials: true
+};
 
-const db = mysql.createConnection({
-  host: process.env.DATABASE_HOST,
-  user: process.env.DATABASE_USER,
-  password: process.env.DATABASE_PASSWORD,
-  database: process.env.DATABASE,
-});
-
-db.connect((error) => {
-  if (error) {
-    console.log(Error);
-  } else {
-    console.log("MySQL Connected...");
-  }
-});
+app.use(cors(corsOptions));
 
 //parse URL encoded bodies as sent by HTML forms. Enables us to grab data from any form
 app.use(
@@ -49,17 +40,25 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-//define routes
-app.use("/", require("./routes/admin"));
-//app.use("/", require("./routes/passwordReset"));
-app.use("/", require("./routes/pages"));
-app.use("/auth", require("./routes/auth"));
+//get all routes from the routes folder
+readdirSync('./routes').map((r) => app.use('/ladybloom', require(`./routes/${r}`)));
 app.use(express.static("public"));
 app.use(express.static("upload"));
 
 const publicDirectory = path.join(__dirname, "public");
 app.use(express.static(publicDirectory));
 
-app.listen(5500, () => {
-  console.log("Server started on PORT 5500");
+//create respective tables from models
+const beneficiary = require('./models/Beneficiary');
+const mentor = require('./models/Mentor');
+const localAuthority = require('./models/LocalAuthority');
+
+beneficiary.sync();
+mentor.sync();
+localAuthority.sync();
+
+const PORT = process.env.PORT || 5501;
+
+app.listen(PORT, () => {
+  console.log(`Server running on Port ${PORT}`);
 });
