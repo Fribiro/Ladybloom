@@ -138,11 +138,12 @@ const Beneficiary = () => {
 
   useEffect(() => {
     console.log(user);
-    Axios.get("http://localhost:5500/benef", {
+    Axios.get(`http://localhost:5500/ladybloom/benef/${user.accesstoken.user}`, {
       headers: {
         email: user.accesstoken.userEmail,
       },
     }).then((res) => {
+      debugger
       console.log(res.data);
       setUsers(res.data);
       console.log(res.data);
