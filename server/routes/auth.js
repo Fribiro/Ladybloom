@@ -9,9 +9,9 @@ router.post("/signup", authController.signup);
 
 router.post("/login", authController.login);
 
-router.post("/order", authController.order);
+// router.post("/order", authController.order);
 
-router.post("/donations", authController.donations);
+// router.post("/donations", authController.donations);
 
 router.post("/refresh_token", authController.refreshtoken);
 

@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const { authPage } = require("../middleware/auth");
+const { GetAllBeneficiaries, GetBeneficiaryById } = require("../controllers/Beneficiary");
 
 const db = mysql.createConnection({
   host: process.env.DATABASE_HOST,
@@ -12,28 +13,7 @@ const db = mysql.createConnection({
 });
 
 //get all users
-router.get("/beneficiary", (req, res) => {
-  let sql = "SELECT * FROM beneficiary";
-  let query = db.query(sql, (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-      console.log(results);
-    }
-  });
-});
 
-router.get("/benef", (req, res) => {
-
-  let sql = "SELECT * FROM beneficiary WHERE email= ? ";
-  let query = db.query(sql, [req.headers.email], (err, results) => {
-    if (err) throw err;
-    else {
-      res.send(results);
-      console.log(results);
-    }
-  });
-});
 
 router.get("/ment", (req, res) => {
   let sql = "SELECT * FROM mentor WHERE email= ? ";
