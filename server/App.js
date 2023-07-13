@@ -49,10 +49,39 @@ const publicDirectory = path.join(__dirname, "public");
 app.use(express.static(publicDirectory));
 
 //create respective tables from models
+const user = require('./models/User');
+const role = require('./models/Role');
 const beneficiary = require('./models/Beneficiary');
 const mentor = require('./models/Mentor');
 const localAuthority = require('./models/LocalAuthority');
 
+//one to may relationship
+role.hasMany(user, {
+  foreignKey: 'userId'
+});
+
+user.belongsTo(role);
+
+user.hasOne(beneficiary, {
+  foreignKey: 'beneficiaryId',
+});
+
+beneficiary.belongsTo(user);
+
+user.hasOne(mentor, {
+  foreignKey: 'mentorId',
+});
+
+mentor.belongsTo(user);
+
+user.hasOne(localAuthority, {
+  foreignKey: 'localAuthorityId'
+});
+
+localAuthority.belongsTo(user);
+
+user.sync();
+role.sync();
 beneficiary.sync();
 mentor.sync();
 localAuthority.sync();
