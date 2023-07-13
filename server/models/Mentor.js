@@ -21,7 +21,7 @@ const Mentor = sequelize.define("Mentor", {
         allowNull: false
     },
     Password: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     NationalId: {

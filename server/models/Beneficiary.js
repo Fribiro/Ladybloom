@@ -21,7 +21,7 @@ const Beneficiary = sequelize.define("Beneficiary", {
         allowNull: false
     },
     Password: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     NationalId: {

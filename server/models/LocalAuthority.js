@@ -21,7 +21,7 @@ const LocalAuthority = sequelize.define("LocalAuthority", {
         allowNull: false
     },
     Password: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     NationalId: {
