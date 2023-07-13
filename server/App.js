@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
-const mysql = require("mysql");
 const dotenv = require("dotenv");
+const { readdirSync } = require('fs');
 
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
