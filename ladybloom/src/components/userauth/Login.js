@@ -51,7 +51,7 @@ const Login = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:5500/auth/login", {
+    Axios.post("http://localhost:5500/ladybloom/login", {
       email,
       password,
       credentials: "include",
@@ -60,14 +60,15 @@ const Login = () => {
       },
     }).then(
       (res) => {
-        // console.log(res.data)
-        dispatch(userSet({accesstoken: res.data.accesstoken, userEmail:res.data.email, role: res.data.role, area: res.data.location}));
+        console.log(res.data)
+        dispatch(userSet({accesstoken: res.data.accesstoken, user: res.data.user, role: res.data.role }));
         console.log(userSet)
-        if(res.data.role === 'beneficiary'){
+        //debugger
+        if(res.data.role === '1' ){
             setRedirect("/beneficiary");
-        } else if (res.data.role === 'mentor'){
+        } else if (res.data.role === '2'){
           setRedirect("/mentorProfile");
-        } else if (res.data.role === 'administrator') {
+        } else if (res.data.role === '3') {
           setRedirect("/administratorProfile");
         }
         

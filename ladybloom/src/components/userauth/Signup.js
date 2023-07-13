@@ -73,7 +73,7 @@ export default class InvestorSignup extends Component {
   addUser = (e) => {
     let formData = { ...this.state };
     console.log(formData.ifirstName);
-    Axios.post("http://localhost:5500/auth/signup", {
+    Axios.post("http://localhost:5500/ladybloom/signup", {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
