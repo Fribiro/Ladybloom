@@ -5,8 +5,9 @@ const sequelize = new Sequelize(
     process.env.DATABASE_USER,
     process.env.DATABASE_PASSWORD,
     {
-        dialect: "mysql",
+        dialect: "postgres",
         host: process.env.DATABASE_HOST,
+        port: process.env.DATABASE_PORT || 5432,
         "define": {
             timestamps: false
         }

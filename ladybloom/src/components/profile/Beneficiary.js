@@ -145,7 +145,7 @@ const Beneficiary = () => {
     }).then((res) => {
       debugger
       console.log(res.data);
-      setUsers(res.data);
+      setUsers([res.data]);
       console.log(res.data);
     });
   }, []);

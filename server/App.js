@@ -49,8 +49,8 @@ const publicDirectory = path.join(__dirname, "public");
 app.use(express.static(publicDirectory));
 
 //create respective tables from models
-const user = require('./models/User');
 const role = require('./models/Role');
+const user = require('./models/User');
 const beneficiary = require('./models/Beneficiary');
 const mentor = require('./models/Mentor');
 const localAuthority = require('./models/LocalAuthority');

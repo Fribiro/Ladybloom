@@ -64,11 +64,11 @@ const Login = () => {
         dispatch(userSet({accesstoken: res.data.accesstoken, user: res.data.user, role: res.data.role }));
         console.log(userSet)
         //debugger
-        if(res.data.role === '1' ){
+        if(res.data.role === '4' ){
             setRedirect("/beneficiary");
-        } else if (res.data.role === '2'){
+        } else if (res.data.role === '5'){
           setRedirect("/mentorProfile");
-        } else if (res.data.role === '3') {
+        } else if (res.data.role === '6') {
           setRedirect("/administratorProfile");
         }
         

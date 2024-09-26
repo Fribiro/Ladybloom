@@ -17,12 +17,14 @@ export default class InvestorSignup extends Component {
     this.state = {
       firstName: "",
       lastName: null,
+      role: null,
       email: null,
       password: null,
       confirmPassword: null,
       formErrors: {
         firstName: "",
         lastName: "",
+        role: "",
         email: "",
         password: "",
         confirmPassword: "",
@@ -69,18 +71,21 @@ export default class InvestorSignup extends Component {
 
     this.setState({ formErrors, [name]: value });
   };
-
+  
   addUser = (e) => {
+    // debugger
     let formData = { ...this.state };
-    console.log(formData.ifirstName);
+    console.log(formData.role);
     Axios.post("http://localhost:5500/ladybloom/signup", {
       firstName: formData.firstName,
       lastName: formData.lastName,
+      userRole: formData.role,
       email: formData.email,
       password: formData.password,
       confirmPassword: formData.confirmPassword,
     }).then(
       (res) => {
+        console.log(res.data);
         if (res.status === 201) {
           this.setState({
             redirect: "/login",
@@ -151,17 +156,27 @@ export default class InvestorSignup extends Component {
                     )}
                   </div>
                 </div>
-                {/* <div className="input-group">
+                <div className="input-group">
                   <label for="role">User Role</label>
-                  <select id="role" name="role">
-                    <option disabled selected value>
+                  <select id="role" name="role" 
+                    className={
+                      formErrors.firstName.length > 0 ? "error" : null
+                    }
+                    onChange={this.handleChange}
+                  >
+                    <option defaultValue value>
                       Select User Type
                     </option>
-                    <option value="chief">Local Authority</option>
-                    <option value="mentor">Mentor</option>
-                    <option value="benefciary">Beneficiary</option>
+                    <option value="Administrator">Local Authority</option>
+                    <option value="Mentor">Mentor</option>
+                    <option value="Beneficiary">Beneficiary</option>
                   </select>
-                </div> */}
+                    {formErrors.firstName.length > 0 && (
+                      <small className="danger-error">
+                        {formErrors.role}
+                      </small>
+                    )}
+                </div>
                 <div className="input-group">
                   <label htmlFor="email">Email</label>
                   <input

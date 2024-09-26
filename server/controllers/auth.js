@@ -12,7 +12,7 @@ const {
 } = require("../middleware/token");
 const Beneficiary = require("../models/Beneficiary");
 const Mentor = require("../models/Mentor");
-const LoacalAuthority = require("../models/LocalAuthority");
+const LocalAuthority = require("../models/LocalAuthority");
 const User = require("../models/User");
 const Role = require("../models/Role");
 
@@ -29,27 +29,25 @@ exports.login = async (req, res) => {
     }
 
     try {
-            const user = await User.findOne({ where: { UserEmail: email } });
-            if (!user) throw new Error("User does not exist.");
+      const user = await User.findOne({ where: { UserEmail: email } });
+      if (!user) throw new Error("User does not exist.");
 
-            const accesstoken = createAccessToken(user.UsersId);
-            const refreshtoken = createRefreshToken(user.UsersId);
+      const accesstoken = createAccessToken(user.UsersId);
+      const refreshtoken = createRefreshToken(user.UsersId);
 
-            await User.update(
-                { UserToken: refreshtoken },
-                { where: { UserEmail: email } }
-            );
-            //console.log(user);
+      await User.update(
+        { UserToken: refreshtoken },
+        { where: { UserEmail: email } }
+      );
+      //console.log(user);
 
-            sendRefreshToken(res, refreshtoken);
-            sendAccessToken(req, res, accesstoken, user.UsersId ,user.UserRole);
-
-
-        } catch (err) {
-            res.send({
-                error: `${err.message}`,
-            });
-        }
+      sendRefreshToken(res, refreshtoken);
+      sendAccessToken(req, res, accesstoken, user.UsersId, user.UserRole);
+    } catch (err) {
+      res.send({
+        error: `${err.message}`,
+      });
+    }
 
     // db.query(
     //   "SELECT * FROM beneficiary WHERE email = ?",
@@ -129,55 +127,66 @@ exports.login = async (req, res) => {
   } catch (error) {
     res.send({
       error: `${err.message}`,
-  });
+    });
   }
 };
 
-
-
-//signup function for investors
-exports.signup =  async (req, res) => {
+//signup function
+exports.signup = async (req, res) => {
   try {
+    const { firstName, lastName, userRole, email, password } = req.body;
 
-    const { firstName, lastName, email, password, confirmPassword } = req.body;
-
-    //validation 
+    //validation
     if (!firstName) return res.status(400).send("First name is required");
     if (!lastName) return res.status(400).send("Last name is required");
+    if (!userRole) return res.status(400).send("Role is required");
     if (!email) return res.status(400).send("Email is required");
     if (!password) return res.status(400).send("Password is required");
 
     if (!password || password.length < 6) {
-        return res
-            .status(400)
-            .send("password is required and should be min 6 characters long");
+      return res
+        .status(400)
+        .send("password is required and should be min 6 characters long");
     }
-
-    let role = await Role.findOne({ where: { RoleId: 1 } })
+    
+    let role = await Role.findOne({ where: { RoleName: userRole } });
 
     const user = await User.create({
-        UserEmail: email,
-        UserPassword: password,
-        UserRole: role.RoleId,
+      UserEmail: email,
+      UserPassword: password,
+      UserRole: role.RoleId,
     });
-    console.log(user);
-    const BeneficiarySignup = await Beneficiary.create({
-        FirstName: firstName,
-        LastName: lastName,
-        Email: email,
-        Password: password
-    })
+    console.log('User created',user);
+    let userSignup;
 
-    await user.setBeneficiary(BeneficiarySignup);
+    const userData = {
+      FirstName: firstName,
+      LastName: lastName,
+      Email: email,
+      Password: password,
+    };
+    console.log('User.userRole', user.UserRole);
+    
+    switch (user.UserRole) {
+      case '6':
+        userSignup = await LocalAuthority.create(userData);
+        await user.setLocalAuthority(userSignup);
+        break;
+      case '5':
+        userSignup = await Mentor.create(userData);
+        await user.setMentor(userSignup);
+        break;
+      default:
+        userSignup = await Beneficiary.create(userData);
+        await user.setBeneficiary(userSignup);
+        break;
+    }
 
-
-
-    res.status(200).send({ user, BeneficiarySignup });
-
-} catch (error) {
+    res.status(201).send({ user, userSignup });
+  } catch (error) {
     console.log(error);
     return res.status(400).send("Error. Try again.");
-}
+  }
 
   //hinder sql injection by allowing each person to use only one email address
   // db.query(
@@ -318,22 +327,22 @@ exports.refreshtoken = async (req, res) => {
 
   const user = await User.findOne({ where: { UsersId: payload.userId } });
 
-    if (!user) {
-        return res.send("User not found!");
-    }
-    if (user.UserToken !== token) {
-        return res.send("Invalid token...");
-    }
-    const accesstoken = createAccessToken(User.UsersId);
-    const refreshtoken = createRefreshToken(User.UsersId);
-    await User.update(
-        { UserToken: refreshtoken },
-        { where: { UserEmail: user.UserEmail } }
-    );
+  if (!user) {
+    return res.send("User not found!");
+  }
+  if (user.UserToken !== token) {
+    return res.send("Invalid token...");
+  }
+  const accesstoken = createAccessToken(User.UsersId);
+  const refreshtoken = createRefreshToken(User.UsersId);
+  await User.update(
+    { UserToken: refreshtoken },
+    { where: { UserEmail: user.UserEmail } }
+  );
 
-    sendRefreshToken(req, res, refreshtoken);
-    const { UserEmail, UserRole } = user;
-    return res.send({ accesstoken, refreshtoken, UserEmail,UserRole });
+  sendRefreshToken(req, res, refreshtoken);
+  const { UserEmail, UserRole } = user;
+  return res.send({ accesstoken, refreshtoken, UserEmail, UserRole });
 
   // db.query(
   //   "SELECT * FROM beneficiary WHERE email = ?",
