@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 //get all routes from the routes folder
-readdirSync('./routes').map((r) => app.use('/ladybloom', require(`./routes/${r}`)));
+readdirSync('./routes').map((r) => app.use('/api', require(`./routes/${r}`)));
 app.use(express.static("public"));
 app.use(express.static("upload"));
 

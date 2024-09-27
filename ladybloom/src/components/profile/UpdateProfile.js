@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
 import { faCity } from "@fortawesome/free-solid-svg-icons";
+import { API_BASE_URL } from "../../constants/constants";
 
 const UpdateProfile = () => {
   const [message, setMessage] = useState("");
@@ -22,7 +23,7 @@ const UpdateProfile = () => {
 
   const updateProfile = () => {
     let data = {};
-    Axios.put("http://localhost:5500/update", {
+    Axios.put(`${API_BASE_URL}/update`, {
       firstName: firstName,
       lastName: lastName,
       email: email,

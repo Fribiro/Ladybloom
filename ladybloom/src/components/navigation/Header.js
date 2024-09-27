@@ -6,6 +6,7 @@ import { selectUser } from "../../state/user";
 import Avatar from "@material-ui/core/Avatar";
 import { useDispatch } from "react-redux";
 import { userSet } from "../../state/user";
+import { API_BASE_URL } from "../../constants/constants";
 
 const media = {
   mobile: "@media (min-width: 320px) and (max-width: 480px)",
@@ -164,7 +165,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const logOutCallback = async () => {
-    await fetch("http://localhost:5500/auth/logout", {
+    await fetch(`${API_BASE_URL}/auth/logout`, {
       method: "POST",
     });
     dispatch(userSet());

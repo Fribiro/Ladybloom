@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Homepage from "./components/homepage/Homepage";
 import Axios from "axios";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -28,7 +28,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import ScrollUp from "./components/ScrollUp";
-import BeatLoader from "react-spinners/BeatLoader";
+//import BeatLoader from "react-spinners/BeatLoader";
 import MetaDecorator from "./components/utils/Metadecorator";
 import Login from "./components/userauth/Login";
 import Signup from "./components/userauth/Signup";
@@ -42,10 +42,11 @@ import AdministratorPage from './components/profile/AdministratorPage'
 import Beneficiary from "./components/profile/Beneficiary";
 import BeneficiaryPages from "./components/protected/BeneficiaryPages";
 import Learn from "./components/protected/Learn";
-import BeneficiaryPage from "./components/protected/BeneficiaryPages";
+//import BeneficiaryPage from "./components/protected/BeneficiaryPages";
 import BeneficiaryProfile from "./components/profile/BeneficiaryProfile";
 import Administrator from "./components/profile/Administrator";
 import Mentor from "./components/profile/Mentor";
+import { API_BASE_URL } from "./constants/constants";
 
 library.add(
   fab,
@@ -87,7 +88,7 @@ function App(props) {
   //get a new accesstoken if a refreshtoken exists
   useEffect(() => {
     const checkRefreshToken = () => {
-      Axios.post("http://localhost:5500/auth/refresh_token", {
+      Axios.post(`${API_BASE_URL}/auth/refresh_token`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -105,7 +106,7 @@ function App(props) {
   }, []);
 
   const logoutCallback = async () => {
-    Axios.post("http://localhost:5500/logout", {
+    Axios.post(`${API_BASE_URL}/logout`, {
       method: "POST",
       credentials: "include",
     });

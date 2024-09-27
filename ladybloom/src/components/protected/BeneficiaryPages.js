@@ -12,6 +12,7 @@ import { MentorWrapper } from "./Mentors.style";
 import { LocalAuthorityWrapper } from "./LocalAuthority.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BeneficiaryWrapper } from "./Beneficiary.style";
+import { API_BASE_URL } from "../../constants/constants";
 
 const BeneficiaryPages = () => {
   const [visible, setVisible] = useState(true);
@@ -23,7 +24,7 @@ const BeneficiaryPages = () => {
 
   useEffect(() => {
 
-    Axios.get("http://localhost:5500/beneficiary").then((res) => {
+    Axios.get(`${API_BASE_URL}/beneficiary`).then((res) => {
       console.log(res.data);
       setUsers(res.data);
       //console.log(users);
@@ -35,7 +36,7 @@ const BeneficiaryPages = () => {
   }
 
   const getUser = () => {
-    Axios.get("http://localhost:5500/beneficiary").then((res) => {
+    Axios.get(`${API_BASE_URL}/beneficiary`).then((res) => {
       console.log(res.data);
       setUserdetails(res.data[0]);
       $("#myModal").modal("show");
@@ -52,7 +53,7 @@ const BeneficiaryPages = () => {
   ];
 
   const filterUsers = (value) => {
-    Axios.get("http://localhost:5500/beneficiary").then((res) => {
+    Axios.get(`${API_BASE_URL}/beneficiary`).then((res) => {
       //console.log(res.data);
       //setUsers(res.data);
 

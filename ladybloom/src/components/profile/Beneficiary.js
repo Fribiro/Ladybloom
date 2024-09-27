@@ -8,6 +8,7 @@ import { Link, Redirect } from "react-router-dom";
 import { userSet } from "../../state/user";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../state/user";
+import { API_BASE_URL } from "../../constants/constants";
 
 const BeneficiaryWrapper = styled.div`
   .userProfile {
@@ -138,7 +139,7 @@ const Beneficiary = () => {
 
   useEffect(() => {
     console.log(user);
-    Axios.get(`http://localhost:5500/ladybloom/benef/${user.accesstoken.user}`, {
+    Axios.get(`${API_BASE_URL}/benef/${user.accesstoken.user}`, {
       headers: {
         email: user.accesstoken.userEmail,
       },

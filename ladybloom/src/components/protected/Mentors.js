@@ -14,6 +14,7 @@ import $ from "jquery";
 import { MentorWrapper } from "./Mentors.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
+import { API_BASE_URL } from "../../constants/constants";
 
 const Mentors = () => {
   const [visible, setVisible] = useState(true);
@@ -25,10 +26,10 @@ const Mentors = () => {
 // const dispatch = useDispatch()
 
   useEffect(() => {
-    Axios.get("http://localhost:5500/mentor").then((res) => {
+    Axios.get(`${API_BASE_URL}/mentors`).then((res) => {
       console.log(res.data);
       // dispatch(mentorsSet(res.data))
-      setUsers(res.data)
+      setUsers([res.data])
       //console.log(users);
     });
   }, []);
@@ -46,7 +47,7 @@ const Mentors = () => {
   const excludeColumns = ["id"];
 
   const filterUsers = (value) => {
-    Axios.get("http://localhost:5500/mentor").then((res) => {
+    Axios.get(`${API_BASE_URL}/mentors`).then((res) => {
       //console.log(res.data);
       //setUsers(res.data);
 

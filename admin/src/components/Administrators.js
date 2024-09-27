@@ -16,6 +16,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "jquery/dist/jquery.min.js";
 
 import $ from "jquery";
+import { API_BASE_URL } from "../../../ladybloom/src/constants/constants";
 
 const Administrators = () => {
   const [id, setid] = useState("");
@@ -29,7 +30,7 @@ const Administrators = () => {
   const ITEMS_PER_PAGE = 10;
 
   const addUsers = () => {
-    Axios.post("http://localhost:5500/create", {
+    Axios.post(`${API_BASE_URL}/create`, {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -46,26 +47,26 @@ const Administrators = () => {
   };
 
   const getUsers = () => {
-    Axios.get("http://localhost:5500/users").then((res) => {
+    Axios.get(`${API_BASE_URL}/users`).then((res) => {
       setUsers(res.data);
     });
   };
   const getUser = (id) => {
-    Axios.get("http://localhost:5500/users/${id}").then((res) => {
+    Axios.get(`${API_BASE_URL}/users/${id}`).then((res) => {
       console.log(res.data);
       setUserdetails(res.data[0]);
       $("#myModal").modal("show");
     });
   };
   useEffect(() => {
-    Axios.get("http://localhost:5500/administrators").then((res) => {
+    Axios.get(`${API_BASE_URL}/administrators`).then((res) => {
       console.log(res.data);
       setUsers(res.data);
       //console.log(users);
     });
   }, []);
   const updateUsers = (id) => {
-    Axios.put("http://localhost:5500/update", {}).then((res) => {
+    Axios.put(`${API_BASE_URL}/update`, {}).then((res) => {
       setUsers(
         users.map((val) => {
           return val.id === id
@@ -82,7 +83,7 @@ const Administrators = () => {
   };
 
   const deleteUsers = (id) => {
-    Axios.delete(`http://localhost:5500/administrators/${id}`).then((res) => {
+    Axios.delete(`${API_BASE_URL}/administrators/${id}`).then((res) => {
       setUsers(
         users.filter((val) => {
           return val.id !== id;

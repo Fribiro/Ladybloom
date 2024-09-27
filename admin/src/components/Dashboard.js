@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Link } from "react-router-dom";
 import Axios from "axios";
+import { API_BASE_URL } from "../../../ladybloom/src/constants/constants";
 
 const Dashboard = () => {
     const [administrators, setadministrators] = useState([]);
@@ -8,19 +9,19 @@ const Dashboard = () => {
     const [beneficiaries, setBeneficiaries] = useState([]);
 
     useEffect(() => {
-      Axios.get("http://localhost:5500/beneficiary").then((res) => {
+      Axios.get(`${API_BASE_URL}/beneficiary`).then((res) => {
         setBeneficiaries(res.data);
       });
     }, []);
 
     useEffect(() => {
-      Axios.get("http://localhost:5500/administrators").then((res) => {
+      Axios.get(`${API_BASE_URL}/administrators`).then((res) => {
         setadministrators(res.data);
       });
     }, []);
 
     useEffect(() => {
-      Axios.get("http://localhost:5500/mentors").then((res) => {
+      Axios.get(`${API_BASE_URL}/mentors`).then((res) => {
         setMentors(res.data);
       });
     }, []);

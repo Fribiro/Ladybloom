@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import styled from "styled-components";
+//import styled from "styled-components";
 
 import Axios from "axios";
 import { Link, Redirect } from "react-router-dom";
 import { LoginWrapper } from "./Login.style";
 import {useDispatch} from 'react-redux'
-import { accesstoken } from '../../state/user'
-import { UserContext } from "../../App";
+//import { accesstoken } from '../../state/user'
+//import { UserContext } from "../../App";
 import { userSet } from "../../state/user";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../state/user";
+import { API_BASE_URL } from "../../constants/constants";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -51,7 +52,7 @@ const Login = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    Axios.post("http://localhost:5500/ladybloom/login", {
+    Axios.post(`${API_BASE_URL}/login`, {
       email,
       password,
       credentials: "include",
@@ -65,7 +66,7 @@ const Login = () => {
         console.log(userSet)
         //debugger
         if(res.data.role === '4' ){
-            setRedirect("/beneficiary");
+          setRedirect("/beneficiary");
         } else if (res.data.role === '5'){
           setRedirect("/mentorProfile");
         } else if (res.data.role === '6') {

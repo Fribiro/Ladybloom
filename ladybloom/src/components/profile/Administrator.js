@@ -12,6 +12,7 @@ import { AdministratorWrapper } from "./Administrator.style";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "jquery/dist/jquery.min.js";
+import { API_BASE_URL } from "../../constants/constants";
 
 const Administrator = () => {
   const [visible, setVisible] = useState(true);
@@ -22,7 +23,7 @@ const Administrator = () => {
 
   useEffect(() => {
     console.log(user);
-    Axios.get("http://localhost:5500/admin", {
+    Axios.get(`${API_BASE_URL}/admin`, {
       headers: {
         email: user.accesstoken.userEmail,
         location: user.accesstoken.area
@@ -35,7 +36,7 @@ const Administrator = () => {
   }, []);
 
   useEffect(() => {
-    Axios.get("http://localhost:5500/apackageorder", {
+    Axios.get(`${API_BASE_URL}/packageorder`, {
       headers: {
         email: user.accesstoken.userEmail,
         location: user.accesstoken.area

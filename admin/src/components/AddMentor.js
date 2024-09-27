@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 import { Redirect } from "react-router-dom";
 import { MentorWrapper } from "./AddMentor.style";
+import { API_BASE_URL } from "../../../ladybloom/src/constants/constants";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -70,7 +71,7 @@ export default class AddMentor extends Component {
   addUser = (e) => {
     let formData = { ...this.state };
     console.log(formData.ifirstName);
-    Axios.post("http://localhost:5500/auth/signup", {
+    Axios.post(`${API_BASE_URL}/auth/signup`, {
       firstName: formData.firstName,
       lastName: formData.lastName,
       email: formData.email,
@@ -93,7 +94,7 @@ export default class AddMentor extends Component {
   };
 
   showUsers = (e) => {
-    Axios.get("http://localhost:5500/admin").then((results) => {});
+    Axios.get(`${API_BASE_URL}/admin`).then((results) => {});
   };
 
   render() {

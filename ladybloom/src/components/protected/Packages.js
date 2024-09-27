@@ -6,6 +6,7 @@ import Modal from 'react-modal'
 import { PackagesBody, PackagesWrapper } from './Packages.style';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Axios from "axios";
+import { API_BASE_URL } from '../../constants/constants';
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -67,7 +68,7 @@ const Packages = () => {
 
     const submitOrder = (e) => {
       e.preventDefault();
-      Axios.post("http://localhost:5500/auth/order", {
+      Axios.post(`${API_BASE_URL}/auth/order`, {
         fullname,
         email,
         location,

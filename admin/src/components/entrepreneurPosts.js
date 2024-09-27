@@ -15,6 +15,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "jquery/dist/jquery.min.js";
 
 import $ from "jquery";
+import { API_BASE_URL } from "../../../ladybloom/src/constants/constants";
 
 const EntrepreneurPosts = () => {
   const [Id, setId] = useState("");
@@ -25,7 +26,7 @@ const EntrepreneurPosts = () => {
   const [userdetails, setUserdetails] = useState([]);
 
   const addUsers = () => {
-    Axios.post("http://localhost:5500/create", {
+    Axios.post(`${API_BASE_URL}/create`, {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -42,20 +43,20 @@ const EntrepreneurPosts = () => {
   };
 
   const getUsers = () => {
-    Axios.get("http://localhost:5500/users").then((res) => {
+    Axios.get(`${API_BASE_URL}/users`).then((res) => {
       console.log(res.data);
       setUsers(res.data);
     });
   };
   useEffect(() => {
-    Axios.get("http://localhost:5500/users").then((res) => {
+    Axios.get(`${API_BASE_URL}/users`).then((res) => {
       console.log(res.data);
       setUsers(res.data);
       //console.log(users);
     });
   }, []);
   const updateUsers = (Id) => {
-    Axios.put("http://localhost:5500/update", {}).then((res) => {
+    Axios.put(`${API_BASE_URL}/update`, {}).then((res) => {
       setUsers(
         users.map((val) => {
           return val.Id === Id
@@ -71,7 +72,7 @@ const EntrepreneurPosts = () => {
   };
 
   const deleteUsers = (Id) => {
-    Axios.delete(`http://localhost:5500/delete/${Id}`).then((res) => {
+    Axios.delete(`${API_BASE_URL}/delete/${Id}`).then((res) => {
       setUsers(
         users.filter((val) => {
           return val.Id !== Id;

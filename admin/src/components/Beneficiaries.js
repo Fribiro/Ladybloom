@@ -18,6 +18,7 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 import "jquery/dist/jquery.min.js";
 
 import $ from "jquery";
+import { API_BASE_URL } from '../../../ladybloom/src/constants/constants';
 Modal.setAppElement("#root");
 
 const customStyles = {
@@ -46,7 +47,7 @@ const Beneficiaries = () => {
     const { id } = useParams();
 
     useEffect(() => {
-      Axios.get("http://localhost:5500/singlebeneficiary", {
+      Axios.get(`${API_BASE_URL}/singlebeneficiary`, {
         headers: {
           id,
         },
@@ -71,7 +72,7 @@ const Beneficiaries = () => {
     }
 
     const addUsers = () => {
-      Axios.post("http://localhost:5500/create", {
+      Axios.post(`${API_BASE_URL}/create`, {
         firstName: firstName,
         lastName: lastName,
         email: email,
@@ -88,12 +89,12 @@ const Beneficiaries = () => {
     };
 
     const getUsers = () => {
-      Axios.get("http://localhost:5500/users").then((res) => {;
+      Axios.get(`${API_BASE_URL}/users`).then((res) => {;
         setUsers(res.data);
       });
     };
     const getUser = (id) => {
-      Axios.get("http://localhost:5500/singlebeneficiary", {
+      Axios.get(`${API_BASE_URL}/singlebeneficiary`, {
         headers: {
           id,
         },
@@ -103,7 +104,7 @@ const Beneficiaries = () => {
       });
     };
     useEffect(() => {
-       Axios.get("http://localhost:5500/beneficiary").then((res) => {
+       Axios.get(`${API_BASE_URL}/beneficiary`).then((res) => {
          console.log(res.data);
          setUsers(res.data);
          //console.log(users);
@@ -111,7 +112,7 @@ const Beneficiaries = () => {
     }, []);
 
     const suspendBenf = (id) => {
-      Axios.put("http://localhost:5500/suspendbenf", {
+      Axios.put(`${API_BASE_URL}/suspendbenf`, {
         id: id
       }).then((res) => {
         setSuspend(true)
@@ -120,7 +121,7 @@ const Beneficiaries = () => {
     } 
 
     const enableBenf = (id) => {
-      Axios.put("http://localhost:5500/enablebenf", {
+      Axios.put(`${API_BASE_URL}/enablebenf`, {
         id: id,
       }).then((res) => {
         setEnable(true);
@@ -128,7 +129,7 @@ const Beneficiaries = () => {
     };
 
     const deleteUsers = (id) => {
-      Axios.delete(`http://localhost:5500/beneficiarydel`, {
+      Axios.delete(`${API_BASE_URL}/beneficiarydel`, {
         headers: {
           id,
         },

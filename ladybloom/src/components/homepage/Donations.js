@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
 import { DonationsWrapper } from './Donations.style';
 import Axios from "axios";
+import { API_BASE_URL } from '../../constants/constants';
 
 const Donations = () => {
   const [fullname, setFullName] = useState()
@@ -13,7 +14,7 @@ const Donations = () => {
 
   const handleDonations = async (e) => {
     try {
-      await Axios.post("http://localhost:5500/auth/donations", {
+      await Axios.post(`${API_BASE_URL}/auth/donations`, {
         fullname,
         email,
         phone,

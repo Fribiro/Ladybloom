@@ -3,6 +3,7 @@ import Axios from "axios";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
 import { SignupWrapper } from "./Signup.style";
+import { API_BASE_URL } from "../../constants/constants";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -76,7 +77,7 @@ export default class InvestorSignup extends Component {
     // debugger
     let formData = { ...this.state };
     console.log(formData.role);
-    Axios.post("http://localhost:5500/ladybloom/signup", {
+    Axios.post(`${API_BASE_URL}/signup`, {
       firstName: formData.firstName,
       lastName: formData.lastName,
       userRole: formData.role,
@@ -101,7 +102,7 @@ export default class InvestorSignup extends Component {
   };
 
   showUsers = (e) => {
-    Axios.get("http://localhost:5500/admin").then((results) => {});
+    Axios.get(`${API_BASE_URL}/admin`).then((results) => {});
   };
 
   render() {

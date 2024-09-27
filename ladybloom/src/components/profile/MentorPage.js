@@ -10,6 +10,7 @@ import { Link, Redirect, useParams } from "react-router-dom";
 import { userSet } from "../../state/user";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../state/user";
+import { API_BASE_URL } from "../../constants/constants";
 
 
 const MentorPage = () => {
@@ -23,7 +24,7 @@ const MentorPage = () => {
 
   useEffect(() => {
     console.log(user);
-    Axios.get(`http://localhost:5500/singlementor`,{
+    Axios.get(`${API_BASE_URL}/singlementor`,{
       headers: {
         id
       },
@@ -41,7 +42,7 @@ const MentorPage = () => {
   const handleSend = async (e) => {
     setSent(true);
     try {
-      await Axios.post("http://localhost:5500/auth/send_mail", {
+      await Axios.post(`${API_BASE_URL}/auth/send_mail`, {
         text,
         info,
       });
